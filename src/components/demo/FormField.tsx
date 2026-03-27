@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import type { FormField as FormFieldType } from '@/types/demo';
 
 interface Props {
@@ -8,14 +9,66 @@ interface Props {
   onChange: (name: string, value: string) => void;
 }
 
+function useTypewriter(text: string, speed = 70, pauseMs = 2000) {
+  const [displayed, setDisplayed] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    let timeout: ReturnType<typeof setTimeout>;
+
+    function run() {
+      let i = 0;
+      // Type forward
+      const typeNext = () => {
+        if (cancelled) return;
+        i++;
+        setDisplayed(text.slice(0, i));
+        if (i < text.length) {
+          timeout = setTimeout(typeNext, speed);
+        } else {
+          // Pause, then erase
+          timeout = setTimeout(eraseNext, pauseMs);
+        }
+      };
+      // Erase backward
+      const eraseNext = () => {
+        if (cancelled) return;
+        i--;
+        setDisplayed(text.slice(0, i));
+        if (i > 0) {
+          timeout = setTimeout(eraseNext, speed / 2);
+        } else {
+          // Pause, then restart
+          timeout = setTimeout(run, 500);
+        }
+      };
+      timeout = setTimeout(typeNext, 800);
+    }
+
+    run();
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+    };
+  }, [text, speed, pauseMs]);
+
+  return displayed;
+}
+
 export function FormField({ field, value, onChange }: Props) {
+  const [isFocused, setIsFocused] = useState(false);
+  const isEmpty = !value;
+  const typedPlaceholder = useTypewriter(field.placeholder ?? '');
+
   const baseClasses =
-    'w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-light-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors';
+    'w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-light-dark focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all';
+
+  const glowClass = isEmpty && !isFocused ? 'demo-input-empty' : '';
 
   if (field.type === 'select' && field.options) {
     return (
       <div>
-        <label htmlFor={field.name} className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor={field.name} className="mb-1.5 block text-xs font-medium text-foreground/70">
           {field.label}
         </label>
         <select
@@ -39,7 +92,7 @@ export function FormField({ field, value, onChange }: Props) {
   if (field.type === 'textarea') {
     return (
       <div>
-        <label htmlFor={field.name} className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor={field.name} className="mb-1.5 block text-xs font-medium text-foreground/70">
           {field.label}
         </label>
         <textarea
@@ -58,7 +111,7 @@ export function FormField({ field, value, onChange }: Props) {
 
   return (
     <div>
-      <label htmlFor={field.name} className="mb-1.5 block text-sm font-medium text-foreground">
+      <label htmlFor={field.name} className="mb-1.5 block text-xs font-medium text-foreground/70">
         {field.label}
       </label>
       <input
@@ -66,11 +119,18 @@ export function FormField({ field, value, onChange }: Props) {
         type={field.type}
         value={value}
         onChange={(e) => onChange(field.name, e.target.value)}
-        placeholder={field.placeholder}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        placeholder={isEmpty && !isFocused ? typedPlaceholder : field.placeholder}
         maxLength={field.maxLength}
         required={field.required}
-        className={baseClasses}
+        className={`${baseClasses} ${glowClass}`}
       />
+      {field.maxLength && (
+        <div className="mt-1 text-right text-[10px] text-light-dark/50">
+          {value.length}/{field.maxLength}
+        </div>
+      )}
     </div>
   );
 }

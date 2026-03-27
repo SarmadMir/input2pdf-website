@@ -92,3 +92,25 @@ npm run dev      # Start dev server (port 3001)
 npm run build    # Production build
 npm run lint     # Run ESLint
 ```
+
+## Design Context
+
+### Users
+Business owners and decision-makers at course platforms, HR departments, legal teams, and event organizations. Non-technical, time-constrained, evaluating whether to hire for document automation. The job: "Find someone who can automate my document generation so I stop doing it manually."
+
+### Brand Personality
+**Professional. Modern. Reliable.** Evoke modern innovation — confident polish, not flashy. Every element must build trust, demonstrate capability, or guide toward contact.
+
+### Aesthetic Direction
+- Dark mode primary, warm coral (#f26380) accents, teal (#63F2D5) for success/badges
+- Bricolage Grotesque (display), Geist Sans (body), Geist Mono (data)
+- Clean spacious sections, content-driven, generous whitespace, mobile-first
+- Subtle entrance animations, no parallax overload. Noise grain texture for depth.
+- No generic SaaS templates, no stock photos, no dev-centric aesthetics
+
+### Design Principles
+1. **Clarity converts** — Each section answers one question. No ambiguity, no jargon.
+2. **Show, don't tell** — Live demo and visual proof over paragraphs of copy.
+3. **Earned trust** — Social proof placed where doubt naturally arises.
+4. **Purposeful polish** — Every animation and effect serves a goal. Restraint is premium.
+5. **Navigation is obvious** — Non-technical users must never feel lost.

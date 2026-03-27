@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import type { DemoConfig } from '@/types/demo';
 import { generatePdf } from '@/lib/pdf/engine';
 
-const DEBOUNCE_MS = 300;
+const DEBOUNCE_MS = 600;
 
 export function usePdfGenerator(
   config: DemoConfig,

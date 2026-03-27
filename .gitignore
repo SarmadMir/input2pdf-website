@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# internal project docs (strategy, decisions, patterns)
+.claude/
+.impeccable.md
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

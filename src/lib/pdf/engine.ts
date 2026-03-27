@@ -1,13 +1,28 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import fontkit from '@pdf-lib/fontkit';
 import type { DemoConfig, TextOverlay } from '@/types/demo';
 import { ordinalDate } from './transforms';
 
-const fontMap = {
+const standardFontMap: Record<string, string> = {
   Helvetica: StandardFonts.Helvetica,
   'Helvetica-Bold': StandardFonts.HelveticaBold,
   Courier: StandardFonts.Courier,
   TimesRoman: StandardFonts.TimesRoman,
-} as const;
+};
+
+// Cache custom font bytes so we only fetch once
+const customFontCache = new Map<string, Uint8Array>();
+
+async function loadCustomFont(url: string): Promise<Uint8Array> {
+  const cached = customFontCache.get(url);
+  if (cached) return cached;
+
+  const res = await fetch(url);
+  const buffer = await res.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  customFontCache.set(url, bytes);
+  return bytes;
+}
 
 export async function generatePdf(
   config: DemoConfig,
@@ -15,15 +30,23 @@ export async function generatePdf(
   templateBytes: Uint8Array
 ): Promise<Uint8Array> {
   const pdfDoc = await PDFDocument.load(templateBytes);
+  pdfDoc.registerFontkit(fontkit);
   const page = pdfDoc.getPages()[config.templatePageIndex];
   const { width, height } = page.getSize();
 
-  // Embed all needed fonts
+  // Embed all needed fonts (standard or custom)
   const embeddedFonts = new Map<string, Awaited<ReturnType<typeof pdfDoc.embedFont>>>();
   for (const overlay of config.textOverlays) {
     if (!embeddedFonts.has(overlay.font)) {
-      const font = await pdfDoc.embedFont(fontMap[overlay.font]);
-      embeddedFonts.set(overlay.font, font);
+      if (overlay.font in standardFontMap) {
+        const font = await pdfDoc.embedFont(standardFontMap[overlay.font]);
+        embeddedFonts.set(overlay.font, font);
+      } else {
+        // Custom font: font value is a URL path like "/fonts/Pacifico-Regular.ttf"
+        const fontBytes = await loadCustomFont(overlay.font);
+        const font = await pdfDoc.embedFont(fontBytes);
+        embeddedFonts.set(overlay.font, font);
+      }
     }
   }
 
@@ -32,12 +55,23 @@ export async function generatePdf(
     if (!text) continue;
 
     const font = embeddedFonts.get(overlay.font)!;
-    const textWidth = font.widthOfTextAtSize(text, overlay.fontSize);
 
-    // Calculate X position
+    // Auto-scale font size to fit within page margins
+    const margin = width * 0.12;
+    const maxTextWidth = width - margin * 2;
+    let fontSize = overlay.fontSize;
+    let textWidth = font.widthOfTextAtSize(text, fontSize);
+    while (textWidth > maxTextWidth && fontSize > 10) {
+      fontSize = Math.floor(fontSize * 0.9);
+      textWidth = font.widthOfTextAtSize(text, fontSize);
+    }
+
+    // Calculate X position — always center relative to page
     let x = overlay.x;
     if (overlay.alignment === 'center') {
       x = (width - textWidth) / 2;
+      // Ensure text doesn't start before left margin
+      if (x < margin) x = margin;
     }
 
     // Calculate Y position
@@ -45,13 +79,13 @@ export async function generatePdf(
     // If overlay.y is 0 for centered items, calculate center
     let y = overlay.y;
     if (overlay.y === 0 && overlay.alignment === 'center') {
-      y = height / 2 + 40; // Matching the PHP: centerY - 40, converted to bottom-origin
+      y = height / 2 + 40;
     }
 
     page.drawText(text, {
       x,
       y,
-      size: overlay.fontSize,
+      size: fontSize,
       font,
       color: rgb(overlay.color.r, overlay.color.g, overlay.color.b),
       maxWidth: overlay.maxWidth,

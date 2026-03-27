@@ -17,7 +17,7 @@ export interface TextOverlay {
   y: number;
   fontSize: number;
   color: { r: number; g: number; b: number };
-  font: 'Helvetica' | 'Helvetica-Bold' | 'Courier' | 'TimesRoman';
+  font: 'Helvetica' | 'Helvetica-Bold' | 'Courier' | 'TimesRoman' | string;
   alignment?: 'left' | 'center';
   maxWidth?: number;
   transform?: 'uppercase' | 'lowercase' | 'capitalize';

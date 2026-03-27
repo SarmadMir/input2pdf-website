@@ -1,8 +1,8 @@
 export const brand = {
-  name: 'Input2PDFSolution',
-  tagline: 'Turning Data into PDFs, Seamlessly',
+  name: 'Input2PDF',
+  tagline: 'Custom document systems, built for your business.',
   description:
-    'Custom PDF generation systems that transform user inputs into professionally designed documents. Certificates, eCards, forms, and full generation portals — built and delivered for your business.',
+    'We build custom systems that generate certificates, agreements, and business documents from simple form inputs. Tailored to your needs, delivered fast.',
   colors: {
     primary: '#f26380',
     secondary: '#63F2D5',
@@ -14,14 +14,13 @@ export const brand = {
 
 export const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Solutions', href: '/solutions' },
+  { label: 'Solutions', href: '#solutions' },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 
 export const socialLinks = {
-  instagram: 'https://instagram.com/',
   github: 'https://github.com/SarmadMir',
-  linkedin: 'https://linkedin.com/',
+  linkedin: 'https://www.linkedin.com/in/sarmadmir/',
 } as const;

@@ -1,24 +1,34 @@
 @import "tailwindcss";
 
 :root {
+  /* Brand */
   --color-primary: #f26380;
+  --color-primary-glow: rgba(242, 99, 128, 0.25);
   --color-secondary: #63F2D5;
   --color-secondary-dark: #387c6f;
   --color-dark: #413543;
-  --color-light-dark: #665d68;
+  --color-light-dark: #a09cab;
 
-  --background: #ffffff;
-  --foreground: #171717;
-  --surface: #f8f7fa;
-  --border: #e5e3e8;
+  /* Easing */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Light mode */
+  --background: #faf9fc;
+  --foreground: #1a1725;
+  --surface: #ffffff;
+  --surface-2: #f3f1f6;
+  --border: #e8e5ed;
+  --border-hover: #d4d0dc;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f0d11;
-    --foreground: #ededed;
-    --surface: #1a171d;
-    --border: #2d2930;
+    --background: #09080c;
+    --foreground: #e8e6ec;
+    --surface: #12101a;
+    --surface-2: #1a1724;
+    --border: #24212e;
+    --border-hover: #332f3e;
   }
 }
 
@@ -26,17 +36,129 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
   --color-primary: var(--color-primary);
+  --color-primary-glow: var(--color-primary-glow);
   --color-secondary: var(--color-secondary);
   --color-secondary-dark: var(--color-secondary-dark);
   --color-dark: var(--color-dark);
   --color-light-dark: var(--color-light-dark);
+  --font-display: var(--font-bricolage-grotesque);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Base */
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Selection */
+::selection {
+  background: rgba(242, 99, 128, 0.2);
+  color: inherit;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Noise overlay for texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── Float animation ─── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ─── Button micro-interactions ─── */
+.btn-primary {
+  transition: all 200ms var(--ease-out-quart);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 100ms;
+}
+
+.btn-ghost {
+  transition: all 200ms var(--ease-out-quart);
+}
+
+.btn-ghost:hover {
+  transform: translateY(-1px);
+}
+
+.btn-ghost:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 100ms;
+}
+
+/* ─── Animated input glow (draws attention to empty demo field) ─── */
+@keyframes input-glow {
+  0%, 100% { border-color: var(--border); }
+  50% { border-color: var(--color-primary); }
+}
+
+.demo-input-empty {
+  animation: input-glow 2.5s ease-in-out infinite;
+}
+
+.demo-input-empty:focus {
+  animation: none;
+}
+
+/* ─── Form focus glow ─── */
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(242, 99, 128, 0.08);
+}
+
+/* ─── Accessibility: Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

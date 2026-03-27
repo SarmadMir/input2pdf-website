@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Bricolage_Grotesque } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import './globals.css';
@@ -14,13 +14,19 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage-grotesque',
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: {
-    default: 'Input2PDFSolution — Custom PDF Generation Systems',
+    default: 'Input2PDFSolution — Document Workflow Automation',
     template: '%s | Input2PDFSolution',
   },
   description:
-    'Custom PDF generation systems that transform user inputs into professionally designed certificates, eCards, forms, and documents. Built and delivered for your business.',
+    'We automate document workflows — certificates, agreements, onboarding docs, and more. Transform structured inputs into production-ready PDFs.',
 };
 
 export default function RootLayout({
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Navbar />
