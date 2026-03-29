@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 interface Props {
   open: boolean;
@@ -41,8 +43,14 @@ export function EmailCertificateModal({ open, onClose, onSuccess, pdfUrl, recipi
     function handleKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose();
     }
-    if (open) window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
+    if (open) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKey);
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKey);
+    };
   }, [open, onClose]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -84,7 +92,9 @@ export function EmailCertificateModal({ open, onClose, onSuccess, pdfUrl, recipi
     }
   }
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <>
@@ -103,19 +113,19 @@ export function EmailCertificateModal({ open, onClose, onSuccess, pdfUrl, recipi
             transition={{ duration: 0.15 }}
           >
             <div
-              className="relative w-full max-w-sm rounded-xl border border-border bg-surface-2 p-6 shadow-2xl"
+              className="relative w-full max-w-sm rounded-xl border border-border bg-surface-2 p-6 shadow-2xl shadow-black/20"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={onClose}
-                className="absolute right-3 top-3 rounded-md p-1 text-light-dark hover:text-foreground transition-colors"
+                className="absolute right-3 top-3 cursor-pointer rounded-md p-1.5 text-light-dark transition-colors hover:text-foreground"
                 aria-label="Close"
               >
-                <X size={16} />
+                <X size={14} />
               </button>
 
               {state === 'success' ? (
-                <div className="flex flex-col items-center gap-3 py-4 text-center">
+                <div className="flex flex-col items-center gap-3 py-6 text-center">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10">
                     <CheckCircle size={20} className="text-secondary" />
                   </div>
@@ -124,29 +134,36 @@ export function EmailCertificateModal({ open, onClose, onSuccess, pdfUrl, recipi
                 </div>
               ) : (
                 <>
-                  <h3 className="mb-1 text-sm font-semibold text-foreground">
-                    Email this certificate
-                  </h3>
-                  <p className="mb-5 text-xs text-light-dark">
-                    Send this certificate to your inbox
-                  </p>
+                  <div className="mb-5">
+                    <h3 className="text-sm font-semibold text-foreground">
+                      Email this certificate
+                    </h3>
+                    <p className="mt-1 text-xs text-light-dark">
+                      Send this certificate to your inbox
+                    </p>
+                  </div>
                   <form onSubmit={handleSubmit}>
+                    <label htmlFor="cert-email" className="mb-2 block text-xs font-medium uppercase tracking-widest text-foreground/60 font-mono">
+                      Email Address
+                    </label>
                     <input
                       ref={inputRef}
+                      id="cert-email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-light-dark focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
+                      className="w-full rounded-lg border border-primary/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-light-dark transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10"
                       disabled={state === 'sending'}
                     />
                     {errorMsg && (
                       <p className="mt-2 text-xs text-red-400">{errorMsg}</p>
                     )}
-                    <button
+                    <Button
                       type="submit"
                       disabled={state === 'sending'}
-                      className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-all hover:brightness-110 disabled:opacity-60"
+                      variant="primary"
+                      className="mt-4 w-full"
                     >
                       {state === 'sending' ? (
                         <>
@@ -159,7 +176,7 @@ export function EmailCertificateModal({ open, onClose, onSuccess, pdfUrl, recipi
                           Send Certificate
                         </>
                       )}
-                    </button>
+                    </Button>
                   </form>
                 </>
               )}
@@ -167,6 +184,7 @@ export function EmailCertificateModal({ open, onClose, onSuccess, pdfUrl, recipi
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

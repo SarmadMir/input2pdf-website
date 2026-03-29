@@ -51,13 +51,13 @@ export async function generatePdf(
   }
 
   for (const overlay of config.textOverlays) {
-    const text = resolveText(overlay, formValues);
+    const text = resolveText(overlay, formValues).trim();
     if (!text) continue;
 
     const font = embeddedFonts.get(overlay.font)!;
 
     // Auto-scale font size to fit within page margins
-    const margin = width * 0.12;
+    const margin = width * 0.10;
     const maxTextWidth = width - margin * 2;
     let fontSize = overlay.fontSize;
     let textWidth = font.widthOfTextAtSize(text, fontSize);
@@ -66,11 +66,11 @@ export async function generatePdf(
       textWidth = font.widthOfTextAtSize(text, fontSize);
     }
 
-    // Calculate X position — always center relative to page
+    // Calculate X position
     let x = overlay.x;
     if (overlay.alignment === 'center') {
+      // Center text precisely on page midpoint
       x = (width - textWidth) / 2;
-      // Ensure text doesn't start before left margin
       if (x < margin) x = margin;
     }
 
@@ -114,6 +114,9 @@ function resolveText(
   } else if (overlay.transform === 'capitalize') {
     value = value.replace(/\b\w/g, (c) => c.toUpperCase());
   }
+
+  // Add a thin space after apostrophes so script fonts don't merge them into the next letter
+  value = value.replace(/'/g, '\u0027 ');
 
   return value;
 }

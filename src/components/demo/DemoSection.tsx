@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pencil, FileText, CheckCircle, Info, ArrowRight } from 'lucide-react';
+import { ButtonLink } from '@/components/ui/Button';
 import type { DemoConfig } from '@/types/demo';
 import { useTemplateLoader } from '@/lib/hooks/useTemplateLoader';
 import { usePdfGenerator } from '@/lib/hooks/usePdfGenerator';
@@ -185,13 +185,10 @@ export function DemoSection({ config }: Props) {
           <p className="text-sm text-light-dark">
             Like what you see?
           </p>
-          <Link
-            href="/contact"
-            className="btn-primary inline-flex items-center rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white shadow-[0_0_20px_rgba(242,99,128,0.15)] hover:shadow-[0_0_25px_rgba(242,99,128,0.25)] hover:brightness-110"
-          >
+          <ButtonLink href="/contact" variant="primary">
             Tell us about your project
-            <ArrowRight size={14} className="ml-1.5" />
-          </Link>
+            <ArrowRight size={14} />
+          </ButtonLink>
         </motion.div>
       </div>
     </section>

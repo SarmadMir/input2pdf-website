@@ -34,18 +34,18 @@ export const landingDemo: DemoConfig = {
       // Centered horizontally, vertically centered on page
       // These values will be calibrated once we measure the actual template
       x: 0,
-      y: 0, // Will be calculated as: pageHeight/2 + 40 (pdf-lib bottom-origin)
-      fontSize: 185,
-      color: { r: 200 / 255, g: 75 / 255, b: 100 / 255 },
-      font: '/fonts/Pacifico-Regular.ttf',
+      y: 224, // Will be calculated as: pageHeight/2 + 40 (pdf-lib bottom-origin)
+      fontSize: 44,
+      color: { r: 231 / 255, g: 104 / 255, b: 102 / 255 },
+      font: '/fonts/GreatVibes-Regular.ttf',
       alignment: 'center',
     },
     {
       fieldName: '__auto_date',
-      x: 460,
-      y: 510, // Will be: 170 points from bottom
-      fontSize: 70,
-      color: { r: 0, g: 0, b: 0 },
+      x: 50,
+      y: 94, // Will be: 170 points from bottom
+      fontSize: 16,
+      color: { r: 68 / 255, g: 68 / 255, b: 68 / 255 },
       font: 'Helvetica',
       alignment: 'left',
     },

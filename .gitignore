@@ -39,6 +39,7 @@ yarn-error.log*
 # internal project docs (strategy, decisions, patterns)
 .claude/
 .impeccable.md
+docs/
 
 # typescript
 *.tsbuildinfo

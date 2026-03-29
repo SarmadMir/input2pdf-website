@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Download, Mail } from 'lucide-react';
+import { Button, ButtonLink } from '@/components/ui/Button';
 import { usePdfPreviewImage } from '@/lib/hooks/usePdfPreviewImage';
 import { EmailCertificateModal } from './EmailCertificateModal';
 
@@ -63,24 +64,27 @@ export function PdfPreview({ pdfUrl, loading, error, recipientName }: Props) {
         </div>
 
         {/* Hover overlay — download + email */}
-        <div className="absolute bottom-3 right-3 flex items-center gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-          <button
+        <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+          <Button
             onClick={() => setEmailModalOpen(true)}
             disabled={emailDisabled}
             title={emailDisabled ? 'Send limit reached' : 'Email this certificate'}
-            className="flex items-center gap-1.5 rounded-md bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm border border-border transition-colors hover:bg-background disabled:cursor-not-allowed disabled:opacity-40"
+            variant="primary"
+            size="sm"
           >
             <Mail size={12} />
             Email Certificate
-          </button>
-          <a
+          </Button>
+          <ButtonLink
             href={pdfUrl}
             download="certificate.pdf"
-            className="flex items-center gap-1.5 rounded-md bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm border border-border transition-colors hover:bg-background"
+            variant="secondary"
+            size="sm"
+            className="bg-background/90 backdrop-blur-sm"
           >
             <Download size={12} />
             Download PDF
-          </a>
+          </ButtonLink>
         </div>
       </div>
 

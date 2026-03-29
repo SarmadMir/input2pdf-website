@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { ButtonLink } from '@/components/ui/Button';
 
 export function CallToAction() {
   return (
@@ -30,21 +30,15 @@ export function CallToAction() {
           and we&apos;ll get back to you with a plan.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-          <Link
-            href="/contact"
-            className="btn-primary inline-flex items-center rounded-lg bg-primary px-7 py-3 text-sm font-semibold text-white shadow-[0_0_24px_rgba(242,99,128,0.2)] hover:shadow-[0_0_32px_rgba(242,99,128,0.3)] hover:brightness-110"
-          >
+          <ButtonLink href="/contact">
             Start Your Project
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-2">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </Link>
-          <Link
-            href="/portfolio"
-            className="btn-ghost inline-flex items-center rounded-lg border border-border px-7 py-3 text-sm font-semibold text-foreground/80 hover:border-border-hover hover:text-foreground"
-          >
+          </ButtonLink>
+          <ButtonLink href="/portfolio" variant="secondary">
             View Past Work
-          </Link>
+          </ButtonLink>
         </div>
       </motion.div>
     </section>

@@ -61,7 +61,7 @@ export function FormField({ field, value, onChange }: Props) {
   const typedPlaceholder = useTypewriter(field.placeholder ?? '');
 
   const baseClasses =
-    'w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-light-dark focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all';
+    'w-full rounded-lg border border-primary/40 bg-background px-4 py-3 text-sm text-foreground placeholder:text-light-dark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all';
 
   const glowClass = isEmpty && !isFocused ? 'demo-input-empty' : '';
 
@@ -111,26 +111,28 @@ export function FormField({ field, value, onChange }: Props) {
 
   return (
     <div>
-      <label htmlFor={field.name} className="mb-1.5 block text-xs font-medium text-foreground/70">
+      <label htmlFor={field.name} className="mb-2 block text-xs font-medium tracking-widest text-foreground/60 font-mono">
         {field.label}
       </label>
-      <input
-        id={field.name}
-        type={field.type}
-        value={value}
-        onChange={(e) => onChange(field.name, e.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        placeholder={isEmpty && !isFocused ? typedPlaceholder : field.placeholder}
-        maxLength={field.maxLength}
-        required={field.required}
-        className={`${baseClasses} ${glowClass}`}
-      />
-      {field.maxLength && (
-        <div className="mt-1 text-right text-[10px] text-light-dark/50">
-          {value.length}/{field.maxLength}
-        </div>
-      )}
+      <div className="flex items-center gap-3">
+        <input
+          id={field.name}
+          type={field.type}
+          value={value}
+          onChange={(e) => onChange(field.name, e.target.value)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          placeholder={isEmpty && !isFocused ? typedPlaceholder : field.placeholder}
+          maxLength={field.maxLength}
+          required={field.required}
+          className={`${baseClasses} ${glowClass}`}
+        />
+        {field.maxLength && (
+          <span className="shrink-0 text-xs text-light-dark/50">
+            {value.length}/{field.maxLength}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

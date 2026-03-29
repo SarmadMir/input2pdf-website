@@ -12,13 +12,53 @@ export const brand = {
   },
 } as const;
 
-export const navLinks = [
+export interface SolutionNavItem {
+  label: string;
+  href: string;
+  description: string;
+  icon: 'certificate' | 'ecard' | 'form' | 'portal';
+}
+
+export const solutionNavItems: SolutionNavItem[] = [
+  {
+    label: 'Certificates',
+    href: '/solutions/certificates',
+    description: 'Auto-generated and delivered instantly',
+    icon: 'certificate',
+  },
+  {
+    label: 'eCards & Invitations',
+    href: '/solutions/ecards',
+    description: 'Branded digital cards at scale',
+    icon: 'ecard',
+  },
+  {
+    label: 'Forms & Agreements',
+    href: '/solutions/forms',
+    description: 'Structured documents with signatures',
+    icon: 'form',
+  },
+  {
+    label: 'Generation Portals',
+    href: '/solutions/portals',
+    description: 'Full-scale platforms for volume',
+    icon: 'portal',
+  },
+];
+
+export interface NavLink {
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+}
+
+export const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
-  { label: 'Solutions', href: '#solutions' },
+  { label: 'Solutions', href: '/solutions', hasDropdown: true },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
-] as const;
+];
 
 export const socialLinks = {
   github: 'https://github.com/SarmadMir',

@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { ButtonLink } from '@/components/ui/Button';
 
 const stagger = {
   hidden: {},
@@ -15,7 +15,7 @@ const fadeUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: [0.25, 1, 0.5, 1] },
+    transition: { duration: 0.35, ease: [0.25, 1, 0.5, 1] as const },
   },
 };
 
@@ -57,21 +57,15 @@ export function Hero() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <a
-                href="#demo"
-                className="btn-primary inline-flex items-center justify-center rounded-lg bg-primary px-7 py-3 text-sm font-semibold text-white shadow-[0_0_24px_rgba(242,99,128,0.2)] hover:shadow-[0_0_32px_rgba(242,99,128,0.3)] hover:brightness-110"
-              >
+              <ButtonLink href="#demo">
                 See How It Works
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-2">
                   <path d="M12 5v14M5 12l7 7 7-7" />
                 </svg>
-              </a>
-              <Link
-                href="/contact"
-                className="btn-ghost inline-flex items-center justify-center rounded-lg border border-border px-7 py-3 text-sm font-semibold text-foreground/80 hover:border-border-hover hover:text-foreground"
-              >
+              </ButtonLink>
+              <ButtonLink href="/contact" variant="secondary">
                 Tell Us What You Need
-              </Link>
+              </ButtonLink>
             </motion.div>
 
             {/* Trust indicators */}
