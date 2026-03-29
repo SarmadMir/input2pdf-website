@@ -2,8 +2,34 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { certificateEmailHtml } from '@/lib/email/certificate-email';
 
+// Simple in-memory rate limit: max 5 sends per IP per 15 minutes
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX) return true;
+
+  entry.count++;
+  return false;
+}
+
 export async function POST(req: NextRequest) {
   try {
+    // Server-side rate limiting by IP
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
+    }
+
     const resend = new Resend(process.env.RESEND_API_KEY);
     const body = await req.json();
     const { email, pdfBase64, recipientName } = body as {
@@ -11,6 +37,11 @@ export async function POST(req: NextRequest) {
       pdfBase64: string;
       recipientName: string;
     };
+
+    // Require a recipient name (prevents empty certificate emails)
+    if (!recipientName?.trim()) {
+      return NextResponse.json({ error: 'Recipient name is required' }, { status: 400 });
+    }
 
     // Validate email
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

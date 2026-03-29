@@ -82,7 +82,7 @@ export function SolutionsOverview() {
             What We Build
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-light-dark sm:text-xl">
-            Custom PDF systems for every document type — pick yours to learn more.
+            Custom PDF systems for every document type and your business needs — pick yours to learn more.
           </p>
         </motion.div>
 

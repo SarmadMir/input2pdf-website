@@ -63,8 +63,8 @@ export function PdfPreview({ pdfUrl, loading, error, recipientName }: Props) {
           />
         </div>
 
-        {/* Hover overlay — download + email */}
-        <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+        {/* Hover overlay — only show when user has entered a name */}
+        {recipientName.trim() && <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
           <Button
             onClick={() => setEmailModalOpen(true)}
             disabled={emailDisabled}
@@ -85,7 +85,7 @@ export function PdfPreview({ pdfUrl, loading, error, recipientName }: Props) {
             <Download size={12} />
             Download PDF
           </ButtonLink>
-        </div>
+        </div>}
       </div>
 
       <EmailCertificateModal
