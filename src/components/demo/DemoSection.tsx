@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Pencil, FileText, CheckCircle, Info, ArrowRight } from 'lucide-react';
 import type { DemoConfig } from '@/types/demo';
 import { useTemplateLoader } from '@/lib/hooks/useTemplateLoader';
 import { usePdfGenerator } from '@/lib/hooks/usePdfGenerator';
@@ -74,14 +75,12 @@ export function DemoSection({ config }: Props) {
         >
           <div className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-primary/[0.03] blur-2xl" />
 
-          <div className="grid gap-1.5 lg:grid-cols-2">
+          <div className="grid items-start gap-1.5 lg:grid-cols-2">
             {/* Form panel */}
-            <div className="flex flex-col rounded-xl bg-surface-2 p-6">
+            <div className="flex flex-col rounded-xl bg-surface-2 p-6 h-full">
               <div className="mb-5 flex items-center gap-2">
                 <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
-                    <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
-                  </svg>
+                  <Pencil size={12} className="text-primary" />
                 </div>
                 <span className="text-sm font-semibold text-foreground">Your Input</span>
               </div>
@@ -94,47 +93,48 @@ export function DemoSection({ config }: Props) {
               />
 
               {/* Context info — fills the space meaningfully */}
-              <div className="mt-6 flex-1">
+              <div className="mt-8 flex-1">
                 {/* How it works mini-guide */}
-                <div className="rounded-lg border border-border/50 bg-background/50 p-4">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground/50">
+                <div className="mb-6">
+                  <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-foreground/40 font-mono">
                     How this works
                   </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">1</div>
-                      <p className="text-xs leading-relaxed text-light-dark">Fill out a form with event, certificate, or course details</p>
+                  <div className="pointer-events-none mb-5 h-px bg-gradient-to-r from-border/60 via-border/30 to-transparent" />
+                  <div className="space-y-5">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">1</div>
+                      <p className="text-sm leading-relaxed text-light-dark">Fill out a form with event, certificate, or course details</p>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">2</div>
-                      <p className="text-xs leading-relaxed text-light-dark">A polished document generates instantly — no manual formatting</p>
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">2</div>
+                      <p className="text-sm leading-relaxed text-light-dark">A polished document generates instantly — no manual formatting</p>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">3</div>
-                      <p className="text-xs leading-relaxed text-light-dark">Download, share, or have it emailed to recipients automatically</p>
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">3</div>
+                      <p className="text-sm leading-relaxed text-light-dark">Download, share, or have it emailed to recipients automatically</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Capabilities hint */}
-                <div className="mt-4 rounded-lg border border-primary/10 bg-primary/[0.03] p-4">
-                  <p className="text-xs leading-relaxed text-light-dark">
-                    <span className="font-medium text-foreground">This is a simplified demo.</span>{' '}
-                    Our client systems support multiple fields, custom templates, signature uploads, and automatic email delivery.
-                  </p>
+                <div className="rounded-lg border border-[#2A2D3E] bg-background/60 p-4">
+                  <div className="flex items-start gap-3">
+                    <Info size={16} className="mt-0.5 shrink-0 text-light-dark/60" />
+                    <p className="text-sm leading-relaxed text-light-dark">
+                      <span className="font-semibold text-foreground">This is a simplified demo.</span><br />
+                      Our client systems support multiple fields, custom templates, signature uploads, and automatic email delivery.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Preview panel */}
-            <div className="flex flex-col rounded-xl bg-surface-2 p-6">
+            <div className="rounded-xl bg-surface-2 p-6 lg:sticky lg:top-6">
               <div className="mb-5 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="flex h-6 w-6 items-center justify-center rounded-md bg-secondary/10">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-secondary">
-                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                      <polyline points="14 2 14 8 20 8" />
-                    </svg>
+                    <FileText size={12} className="text-secondary" />
                   </div>
                   <span className="text-sm font-semibold text-foreground">Generated Document</span>
                 </div>
@@ -158,23 +158,18 @@ export function DemoSection({ config }: Props) {
                       exit={{ opacity: 0 }}
                       className="flex items-center gap-1.5 text-xs text-secondary"
                     >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
-                      </svg>
+                      <CheckCircle size={12} />
                       Generated instantly
                     </motion.span>
                   ) : null}
                 </AnimatePresence>
               </div>
-              <div className="min-h-[400px] flex-1">
-                <PdfPreview
-                  pdfUrl={pdfUrl}
-                  loading={templateLoading}
-                  generating={generating}
-                  error={templateError ?? pdfError}
-                />
-              </div>
+              <PdfPreview
+                pdfUrl={pdfUrl}
+                loading={templateLoading}
+                error={templateError ?? pdfError}
+                recipientName={formValues.fname || ''}
+              />
             </div>
           </div>
         </motion.div>
@@ -195,9 +190,7 @@ export function DemoSection({ config }: Props) {
             className="btn-primary inline-flex items-center rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white shadow-[0_0_20px_rgba(242,99,128,0.15)] hover:shadow-[0_0_25px_rgba(242,99,128,0.25)] hover:brightness-110"
           >
             Tell us about your project
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-1.5">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <ArrowRight size={14} className="ml-1.5" />
           </Link>
         </motion.div>
       </div>
