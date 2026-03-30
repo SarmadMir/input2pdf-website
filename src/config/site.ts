@@ -16,7 +16,7 @@ export interface SolutionNavItem {
   label: string;
   href: string;
   description: string;
-  icon: 'certificate' | 'ecard' | 'form' | 'portal';
+  icon: 'certificate' | 'ecard' | 'form' | 'invoice' | 'permit' | 'portal';
 }
 
 export const solutionNavItems: SolutionNavItem[] = [
@@ -27,9 +27,9 @@ export const solutionNavItems: SolutionNavItem[] = [
     icon: 'certificate',
   },
   {
-    label: 'eCards & Invitations',
+    label: 'eCards & Digital Cards',
     href: '/solutions/ecards',
-    description: 'Branded digital cards at scale',
+    description: 'Branded cards with validity periods',
     icon: 'ecard',
   },
   {
@@ -39,9 +39,21 @@ export const solutionNavItems: SolutionNavItem[] = [
     icon: 'form',
   },
   {
+    label: 'Invoices & Orders',
+    href: '/solutions/invoices',
+    description: 'Calculated pricing and confirmations',
+    icon: 'invoice',
+  },
+  {
+    label: 'Permits & Licenses',
+    href: '/solutions/permits',
+    description: 'Official compliance documents',
+    icon: 'permit',
+  },
+  {
     label: 'Generation Portals',
     href: '/solutions/portals',
-    description: 'Full-scale platforms for volume',
+    description: 'Full-scale platforms at volume',
     icon: 'portal',
   },
 ];

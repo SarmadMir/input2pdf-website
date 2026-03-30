@@ -26,6 +26,19 @@ const icons: Record<string, React.ReactNode> = {
       <path d="M9 15l3 3 3-3" />
     </svg>
   ),
+  invoice: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M8 13h8M8 17h5" />
+    </svg>
+  ),
+  permit: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  ),
   portal: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -38,6 +51,8 @@ const slugMap: Record<string, string> = {
   certificate: '/solutions/certificates',
   ecard: '/solutions/ecards',
   form: '/solutions/forms',
+  invoice: '/solutions/invoices',
+  permit: '/solutions/permits',
   portal: '/solutions/portals',
 };
 
@@ -86,8 +101,8 @@ export function SolutionsOverview() {
           </p>
         </motion.div>
 
-        {/* ─── Solution teaser cards — 2x2 grid ─── */}
-        <div className="grid gap-5 sm:grid-cols-2">
+        {/* ─── Solution teaser cards — 3x2 grid ─── */}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {solutions.map((sol, i) => {
             const highlighted = sol.capabilities.find((c) => c.highlight);
             return (
