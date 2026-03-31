@@ -36,10 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
-# internal project docs (strategy, decisions, patterns)
+# internal project docs (strategy, decisions, patterns, mockups)
 .claude/
 .impeccable.md
 docs/
+designs/
 
 # typescript
 *.tsbuildinfo
