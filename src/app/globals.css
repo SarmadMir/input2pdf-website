@@ -21,15 +21,13 @@
   --border-hover: #d4d0dc;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #09080c;
-    --foreground: #e8e6ec;
-    --surface: #12101a;
-    --surface-2: #1a1724;
-    --border: #24212e;
-    --border-hover: #332f3e;
-  }
+.dark {
+  --background: #09080c;
+  --foreground: #e8e6ec;
+  --surface: #12101a;
+  --surface-2: #1a1724;
+  --border: #24212e;
+  --border-hover: #332f3e;
 }
 
 @theme inline {

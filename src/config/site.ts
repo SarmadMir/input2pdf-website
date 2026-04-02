@@ -23,37 +23,37 @@ export const solutionNavItems: SolutionNavItem[] = [
   {
     label: 'Certificates',
     href: '/solutions/certificates',
-    description: 'Auto-generated and delivered instantly',
+    description: 'Generated from a form, emailed to recipients',
     icon: 'certificate',
   },
   {
     label: 'eCards & Digital Cards',
     href: '/solutions/ecards',
-    description: 'Branded cards with validity periods',
+    description: 'Branded cards with built-in expiry dates',
     icon: 'ecard',
   },
   {
     label: 'Forms & Agreements',
     href: '/solutions/forms',
-    description: 'Structured documents with signatures',
+    description: 'Contracts and forms with digital signatures',
     icon: 'form',
   },
   {
     label: 'Invoices & Orders',
     href: '/solutions/invoices',
-    description: 'Calculated pricing and confirmations',
+    description: 'Order forms with auto-calculated totals',
     icon: 'invoice',
   },
   {
     label: 'Permits & Licenses',
     href: '/solutions/permits',
-    description: 'Official compliance documents',
+    description: 'Government-formatted official documents',
     icon: 'permit',
   },
   {
     label: 'Generation Portals',
     href: '/solutions/portals',
-    description: 'Full-scale platforms at volume',
+    description: 'Your own document platform, white-labeled',
     icon: 'portal',
   },
 ];

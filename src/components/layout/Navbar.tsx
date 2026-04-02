@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ButtonLink } from '@/components/ui/Button';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { navLinks, solutionNavItems, type SolutionNavItem } from '@/config/site';
 import {
   Award,
@@ -35,63 +36,63 @@ const solutionDetails: Record<
   { title: string; description: string; features: string[] }
 > = {
   certificate: {
-    title: 'Professional credentials,\ngenerated at scale.',
+    title: 'Fill a form.\nGet a certificate.',
     description:
-      'Achievement, training, and course completion certificates — generated from user input and delivered without lifting a finger.',
+      'Course completions, training awards, merit badges — your recipients fill a simple form and receive a branded certificate directly in their inbox.',
     features: [
-      'Auto-emailed to recipients',
-      'Multi-certificate systems',
-      'Custom branded templates',
+      'Emailed directly to each recipient',
+      'Multiple certificate types from one form',
+      'Your branding, fonts, and layout',
     ],
   },
   ecard: {
-    title: 'Digital cards that\nleave an impression.',
+    title: 'Branded cards,\nready to send.',
     description:
-      'Branded eCards with custom designs, QR codes, and expiry dates — perfect for memberships, invitations, and promotions.',
+      'CPR eCards, event passes, membership cards — designed to your brand with built-in expiry dates and digital delivery.',
     features: [
-      'QR code integration',
-      'Validity period tracking',
-      'Branded card templates',
+      'Built-in expiry and renewal dates',
+      'Personalized for each recipient',
+      'Download or email instantly',
     ],
   },
   form: {
-    title: 'Structured documents,\nsignatures included.',
+    title: 'Fill in the details.\nSign. Done.',
     description:
-      'Agreements, consent forms, and applications with signature capture — streamlined from input to signed PDF.',
+      'Trade applications, real estate agreements, labor contracts — with a built-in signature pad so everything is captured in one step.',
     features: [
-      'Digital signature capture',
-      'Multi-page support',
-      'Auto-populated fields',
+      'Digital signature capture built in',
+      'Works in English, German, Dutch, and more',
+      'Fields adapt based on user selections',
     ],
   },
   invoice: {
-    title: 'Calculated pricing,\nconfirmed instantly.',
+    title: 'Prices calculated.\nOrder confirmed.',
     description:
-      'Invoices, order confirmations, and receipts with automatic calculations — generated on demand.',
+      'Order forms, reservation confirmations, and payment receipts — totals, taxes, and shipping calculated automatically.',
     features: [
-      'Auto-calculated totals',
-      'Tax & discount handling',
-      'Sequential numbering',
+      'Totals and taxes calculated for you',
+      'Shipping and delivery options included',
+      'Professional layout, ready for records',
     ],
   },
   permit: {
-    title: 'Official documents,\ncompliance-ready.',
+    title: 'Official documents,\nformatted correctly.',
     description:
-      'Permits, licenses, and compliance certificates with proper formatting and verification features.',
+      'Vehicle permits, inspection certificates, health compliance records — formatted to government standards with verification support.',
     features: [
-      'Verification codes',
-      'Tamper-evident seals',
-      'Regulatory formatting',
+      'Meets government formatting standards',
+      'Verification codes for authenticity',
+      'Official seals and stamps included',
     ],
   },
   portal: {
-    title: 'Full-scale platforms,\nbuilt for volume.',
+    title: 'Your own platform.\nYour brand.',
     description:
-      'Complete generation portals where your users can create their own documents — white-labeled and scalable.',
+      'A complete system where your team generates documents — with login, admin dashboard, and history tracking. White-labeled under your brand.',
     features: [
-      'Multi-tenant support',
-      'User management',
-      'Template marketplace',
+      'Admin dashboard with generation history',
+      'Login system for your team',
+      'Public verification for recipients',
     ],
   },
 };
@@ -209,10 +210,10 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.97 }}
                       transition={{ duration: 0.18, ease: [0.25, 1, 0.5, 1] as const }}
-                      className="absolute -left-32 top-full mt-2 flex w-[820px] overflow-hidden rounded-xl rounded-t-lg border border-border bg-surface shadow-2xl shadow-black/30"
+                      className="absolute -left-32 top-full mt-3 flex w-[900px] overflow-hidden rounded-xl border border-border/80 bg-surface shadow-2xl shadow-black/40"
                     >
                       {/* Left Index */}
-                      <div className="w-[320px] shrink-0 border-r border-white/[0.04] py-3">
+                      <div className="w-[340px] shrink-0 border-r border-white/[0.06] py-4">
                         {solutionNavItems.map((item) => {
                           const isActive = item.icon === activeItem;
                           return (
@@ -221,29 +222,29 @@ export function Navbar() {
                               href={item.href}
                               onClick={() => setSolutionsOpen(false)}
                               onMouseEnter={() => setHoveredItem(item.icon)}
-                              className={`flex items-center gap-3 px-5 py-3 transition-colors duration-150 ${
+                              className={`flex items-center gap-3.5 px-6 py-3.5 transition-colors duration-150 ${
                                 isActive
-                                  ? 'border-l-2 border-primary bg-primary/[0.04]'
-                                  : 'border-l-2 border-transparent hover:bg-white/[0.02]'
+                                  ? 'border-l-2 border-primary bg-primary/[0.05]'
+                                  : 'border-l-2 border-transparent hover:bg-white/[0.03]'
                               }`}
                             >
                               <span
                                 className={`shrink-0 ${
-                                  isActive ? 'text-primary' : 'text-primary/50'
+                                  isActive ? 'text-primary' : 'text-foreground/40'
                                 }`}
                               >
                                 {solutionIcons[item.icon]}
                               </span>
                               <div>
                                 <div
-                                  className={`text-sm font-medium ${
-                                    isActive ? 'text-foreground' : 'text-foreground/60'
+                                  className={`text-[14px] font-medium leading-snug ${
+                                    isActive ? 'text-foreground' : 'text-foreground/70'
                                   }`}
                                 >
                                   {item.label}
                                 </div>
                                 <div
-                                  className={`text-[11px] ${
+                                  className={`mt-0.5 text-[12px] leading-snug ${
                                     isActive
                                       ? 'text-foreground/50'
                                       : 'text-foreground/35'
@@ -256,58 +257,59 @@ export function Navbar() {
                           );
                         })}
 
-                        <div className="mx-5 my-2 border-t border-white/[0.04]" />
+                        <div className="mx-6 my-3 border-t border-white/[0.06]" />
 
                         <Link
                           href="/solutions"
                           onClick={() => setSolutionsOpen(false)}
-                          className="block px-5 py-2 font-mono text-[11px] tracking-wider text-foreground/40 transition-colors hover:text-foreground/60"
+                          className="block px-6 py-2 font-mono text-[11px] tracking-wider text-foreground/45 transition-colors hover:text-primary"
                         >
                           Explore all →
                         </Link>
                       </div>
 
                       {/* Right Detail */}
-                      <div className="flex flex-1 flex-col gap-5 p-7">
-                        <span className="font-mono text-[10px] font-semibold uppercase tracking-[3px] text-primary/60">
+                      <div className="flex flex-1 flex-col gap-6 p-9">
+                        <span className="font-mono text-[11px] font-semibold uppercase tracking-[2.5px] text-primary/70">
                           {activeSolution?.label}
                         </span>
 
-                        <h3 className="text-[22px] font-semibold leading-tight tracking-tight text-foreground whitespace-pre-line">
+                        <h3 className="text-2xl font-semibold leading-tight tracking-tight text-foreground whitespace-pre-line">
                           {detail.title}
                         </h3>
 
-                        <p className="text-[13px] leading-relaxed text-foreground/50">
+                        <p className="text-sm leading-relaxed text-foreground/55">
                           {detail.description}
                         </p>
 
-                        <div className="flex flex-col gap-2.5 pt-2">
-                          {detail.features.map((feat, i) => (
-                            <div key={feat} className="flex items-center gap-2.5">
-                              <span
-                                className="inline-block h-1.5 w-1.5 rounded-full bg-primary"
-                                style={{ opacity: 1 - i * 0.25 }}
-                              />
-                              <span className="text-[12.5px] text-foreground/55">
+                        <div className="flex flex-col gap-3 pt-1">
+                          {detail.features.map((feat) => (
+                            <div key={feat} className="flex items-center gap-3">
+                              <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                              <span className="text-[13px] text-foreground/60">
                                 {feat}
                               </span>
                             </div>
                           ))}
                         </div>
 
-                        {/* Document preview placeholder */}
-                        <div className="mt-auto flex items-end justify-between">
+                        {/* Footer */}
+                        <div className="mt-auto flex items-end justify-between pt-4 border-t border-white/[0.04]">
                           <Link
                             href={activeSolution?.href ?? '/solutions'}
                             onClick={() => setSolutionsOpen(false)}
-                            className="flex items-center gap-1.5 font-mono text-[11px] font-medium tracking-wider text-primary transition-colors hover:text-primary/80"
+                            className="flex items-center gap-2 text-[13px] font-medium text-primary transition-colors hover:text-primary/80"
                           >
-                            See all solutions
-                            <ArrowRight size={12} />
+                            Learn more
+                            <ArrowRight size={13} />
                           </Link>
-                          <span className="text-[11px] text-foreground/15">
-                            Custom project?
-                          </span>
+                          <Link
+                            href="/contact"
+                            onClick={() => setSolutionsOpen(false)}
+                            className="text-[12px] text-foreground/30 transition-colors hover:text-foreground/50"
+                          >
+                            Need something different?
+                          </Link>
                         </div>
                       </div>
                     </motion.div>
@@ -327,8 +329,9 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Right side — CTA + Mobile hamburger */}
+        {/* Right side — Theme toggle + CTA + Mobile hamburger */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <ButtonLink href="/contact" size="sm" className="hidden md:inline-flex">
             Tell Us What You Need
           </ButtonLink>
