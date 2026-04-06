@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ButtonLink } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 
 const stagger = {
   hidden: {},
@@ -37,11 +38,10 @@ export function Hero() {
             animate="visible"
           >
             {/* Badge */}
-            <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              <span className="text-xs font-medium tracking-wide text-primary">
+            <motion.div variants={fadeUp} className="mb-6">
+              <Badge variant="ghost-primary" size="lg" dot="primary">
                 Custom PDF Systems
-              </span>
+              </Badge>
             </motion.div>
 
             <motion.h1 variants={fadeUp} className="font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.5rem]">

@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Award, HeartHandshake, FilePenLine, Receipt, Stamp, LayoutGrid, ArrowRight } from 'lucide-react';
 import { solutions } from '@/config/solutions';
+import { Badge, type BadgeVariant } from '@/components/ui/Badge';
+
+/* ─── Badge treatment per label (consistent across landing + detail pages) ─── */
+const badgeVariantFor = (label: string): BadgeVariant =>
+  label.toLowerCase().includes('enterprise') ? 'outline-primary' : 'solid-primary';
 
 export const metadata = {
   title: 'Solutions — Input2PDFSolution',
@@ -8,49 +14,14 @@ export const metadata = {
     'Custom PDF generation systems for certificates, eCards, forms, invoices, permits, and enterprise portals. 30+ projects delivered across 6+ countries.',
 };
 
-/* ─── Icons — larger for featured cards ─── */
+/* ─── Icons (matches mega menu) — sized per use ─── */
 const icons: Record<string, (size: number) => React.ReactNode> = {
-  certificate: (s) => (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 7V4a2 2 0 012-2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2v-3" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  ),
-  ecard: (s) => (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M22 4L12 13 2 4" />
-      <path d="M7 15h4" />
-    </svg>
-  ),
-  form: (s) => (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <path d="M12 18v-6" />
-      <path d="M9 15l3 3 3-3" />
-    </svg>
-  ),
-  invoice: (s) => (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <path d="M8 13h8M8 17h5" />
-    </svg>
-  ),
-  permit: (s) => (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  ),
-  portal: (s) => (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <path d="M3 9h18M9 21V9" />
-      <circle cx="15" cy="15" r="2" />
-    </svg>
-  ),
+  certificate: (s) => <Award size={s} />,
+  ecard: (s) => <HeartHandshake size={s} />,
+  form: (s) => <FilePenLine size={s} />,
+  invoice: (s) => <Receipt size={s} />,
+  permit: (s) => <Stamp size={s} />,
+  portal: (s) => <LayoutGrid size={s} />,
 };
 
 const slugMap: Record<string, string> = {
@@ -148,9 +119,9 @@ export default function SolutionsOverviewPage() {
                     <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
                       {featured.title}
                     </h2>
-                    <span className="rounded-full bg-primary px-3 py-1 text-xs font-bold text-white">
+                    <Badge variant={badgeVariantFor(featured.badge ?? '')} size="md">
                       {featured.badge}
-                    </span>
+                    </Badge>
                   </div>
                   <p className="mt-1 text-sm font-medium text-foreground/40">{featured.forWho}</p>
                 </div>
@@ -178,9 +149,7 @@ export default function SolutionsOverviewPage() {
 
               <div className="mt-8 flex items-center gap-2 text-sm font-semibold text-primary opacity-60 transition-opacity group-hover:opacity-100">
                 Explore certificates
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+<ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </div>
             </div>
 
@@ -249,9 +218,7 @@ export default function SolutionsOverviewPage() {
 
                   <div className="mt-6 flex items-center gap-2 text-sm font-medium text-primary opacity-40 transition-opacity group-hover:opacity-100">
                     Learn more
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
+<ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                   </div>
                 </Link>
               );
@@ -280,9 +247,9 @@ export default function SolutionsOverviewPage() {
                     <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
                       {portal.title}
                     </h2>
-                    <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                    <Badge variant={badgeVariantFor(portal.badge ?? '')} size="md">
                       {portal.badge}
-                    </span>
+                    </Badge>
                   </div>
                   <p className="mt-1 text-sm font-medium text-foreground/40">{portal.forWho}</p>
                 </div>
@@ -309,9 +276,7 @@ export default function SolutionsOverviewPage() {
 
               <div className="mt-8 flex items-center gap-2 text-sm font-semibold text-primary opacity-60 transition-opacity group-hover:opacity-100">
                 Explore portals
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+<ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </div>
             </div>
 

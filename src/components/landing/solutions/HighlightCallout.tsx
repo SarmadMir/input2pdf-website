@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import type { Capability } from '@/config/solutions';
+import { Badge } from '@/components/ui/Badge';
 
 interface HighlightCalloutProps {
   capability: Capability;
@@ -45,9 +46,9 @@ export function HighlightCallout({ capability }: HighlightCalloutProps) {
             <span className="text-base font-bold text-primary sm:text-lg">
               {capability.label}
             </span>
-            <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
+            <Badge variant="ghost-primary" size="sm" uppercase>
               Key Feature
-            </span>
+            </Badge>
           </div>
           <p className="mt-2 text-sm leading-relaxed text-foreground/70 sm:text-base sm:leading-relaxed">
             {capability.description}

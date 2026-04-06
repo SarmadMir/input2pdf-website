@@ -1,5 +1,6 @@
 import { solutions } from '@/config/solutions';
 import { SolutionPageLayout } from '@/components/solutions/SolutionPageLayout';
+import { CertificatePreview } from '@/components/solutions/previews/CertificatePreview';
 
 export const metadata = {
   title: 'Certificates — Input2PDFSolution',
@@ -9,5 +10,5 @@ export const metadata = {
 
 export default function CertificatesPage() {
   const solution = solutions.find((s) => s.icon === 'certificate')!;
-  return <SolutionPageLayout solution={solution} />;
+  return <SolutionPageLayout solution={solution} preview={<CertificatePreview />} />;
 }

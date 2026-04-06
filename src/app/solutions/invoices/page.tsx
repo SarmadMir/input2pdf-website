@@ -1,5 +1,6 @@
 import { solutions } from '@/config/solutions';
 import { SolutionPageLayout } from '@/components/solutions/SolutionPageLayout';
+import { InvoicePreview } from '@/components/solutions/previews/InvoicePreview';
 
 export const metadata = {
   title: 'Invoices & Orders — Input2PDFSolution',
@@ -9,5 +10,5 @@ export const metadata = {
 
 export default function InvoicesPage() {
   const solution = solutions.find((s) => s.icon === 'invoice')!;
-  return <SolutionPageLayout solution={solution} />;
+  return <SolutionPageLayout solution={solution} preview={<InvoicePreview />} />;
 }

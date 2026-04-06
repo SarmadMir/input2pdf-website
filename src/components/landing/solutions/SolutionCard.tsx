@@ -8,54 +8,25 @@ import {
   useSpring,
   useReducedMotion,
 } from 'framer-motion';
+import { Award, HeartHandshake, FilePenLine, Receipt, Stamp, LayoutGrid } from 'lucide-react';
 import type { Solution } from '@/config/solutions';
+import { Badge, type BadgeVariant } from '@/components/ui/Badge';
 import { SolutionNumber } from './SolutionNumber';
 import { CapabilityPill } from './CapabilityPill';
 import { HighlightCallout } from './HighlightCallout';
 
-/* ─── Icon map (string key → SVG) — larger, bolder icons ─── */
+/* ─── Badge treatment per label (consistent across landing + detail pages) ─── */
+const badgeVariantFor = (label: string): BadgeVariant =>
+  label.toLowerCase().includes('enterprise') ? 'outline-primary' : 'solid-primary';
+
+/* ─── Icons (matches mega menu) ─── */
 const icons: Record<Solution['icon'], React.ReactNode> = {
-  certificate: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 7V4a2 2 0 012-2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2v-3" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  ),
-  ecard: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M22 4L12 13 2 4" />
-      <path d="M7 15h4" />
-    </svg>
-  ),
-  form: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <path d="M12 18v-6" />
-      <path d="M9 15l3 3 3-3" />
-    </svg>
-  ),
-  invoice: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <path d="M8 13h8M8 17h5" />
-    </svg>
-  ),
-  permit: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  ),
-  portal: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <path d="M3 9h18M9 21V9" />
-      <circle cx="15" cy="15" r="2" />
-    </svg>
-  ),
+  certificate: <Award size={26} />,
+  ecard: <HeartHandshake size={26} />,
+  form: <FilePenLine size={26} />,
+  invoice: <Receipt size={26} />,
+  permit: <Stamp size={26} />,
+  portal: <LayoutGrid size={26} />,
 };
 
 interface SolutionCardProps {
@@ -124,9 +95,9 @@ export function SolutionCard({ solution, index }: SolutionCardProps) {
               {solution.title}
             </h3>
             {solution.badge && (
-              <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+              <Badge variant={badgeVariantFor(solution.badge)} size="md">
                 {solution.badge}
-              </span>
+              </Badge>
             )}
           </div>
         </div>
