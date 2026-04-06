@@ -323,9 +323,6 @@ export function SolutionPageLayout({ solution, preview }: SolutionPageLayoutProp
                 <ArrowRight size={16} className="ml-1" aria-hidden />
               </ButtonLink>
             </div>
-            <p className="mt-6 text-xs text-foreground/35">
-              {solution.ctaMicro}
-            </p>
           </motion.div>
         </div>
       </section>
