@@ -1,7 +1,7 @@
 import { Hero } from '@/components/landing/Hero';
 import { SolutionsOverview } from '@/components/landing/SolutionsOverview';
 import { HowItWorks } from '@/components/landing/HowItWorks';
-import { Testimonials } from '@/components/landing/Testimonials';
+import { ProofOfWork } from '@/components/landing/proof/ProofOfWork';
 import { CallToAction } from '@/components/landing/CallToAction';
 import { DemoSection } from '@/components/demo/DemoSection';
 import { landingDemo } from '@/config/demo';
@@ -15,7 +15,7 @@ export default function Home() {
       </div>
       <HowItWorks />
       <SolutionsOverview />
-      <Testimonials />
+      <ProofOfWork />
       <CallToAction />
     </>
   );

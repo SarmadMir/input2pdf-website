@@ -99,7 +99,7 @@ export const solutions: Solution[] = [
     proofBullets: [
       'Branded to your design \u2014 emailed to each recipient the moment they complete your form',
       'Custom form built around your fields and logic \u2014 not a template',
-      'Shipped in 1\u20133 weeks from a 15-minute scoping call',
+      'Full generation history — searchable by name, date, or course',
     ],
 
     howItWorksH2: "From form submission to the recipient\u2019s inbox.",
@@ -222,7 +222,7 @@ export const solutions: Solution[] = [
     heroEyebrow: 'Digital Card Systems',
     heroH1: 'Digital credentials your recipients actually keep.',
     heroSubtitle: 'Custom eCard and digital credential systems with built-in expiry dates, branded to your organization, and delivered instantly over email. No printing, no postage, no delays.',
-    proofBullets: ['Branded cards with validity periods and renewal tracking', 'Bulk generation — hundreds of personalized cards in seconds', 'Shipped in 1–3 weeks from a 15-minute scoping call'],
+    proofBullets: ['Branded cards with validity periods and renewal tracking', 'Bulk generation — hundreds of personalized cards in seconds', 'Emailed or downloadable — no printing, no postage'],
 
     howItWorksH2: 'From enrollment to a card in their inbox.',
     howItWorksSub: "Here\u2019s the system we build \u2014 from someone completing your program to a branded card in their inbox.",
@@ -277,7 +277,7 @@ export const solutions: Solution[] = [
     heroEyebrow: 'Form & Agreement Systems',
     heroH1: 'Paperwork that fills itself out and signs itself.',
     heroSubtitle: 'Structured business documents with built-in digital signature capture, conditional logic, and multi-language support. Built for legal, HR, and finance teams who are done with manual PDF editing.',
-    proofBullets: ['Digital signature pad built into every form', 'Multi-language support — English, German, Dutch, and more', 'Shipped in 1–3 weeks from a 15-minute scoping call'],
+    proofBullets: ['Digital signature pad built into every form', 'Multi-language support — English, German, Dutch, and more', 'Signed PDF delivered to all parties automatically'],
 
     howItWorksH2: 'From a blank form to a signed PDF in seconds.',
     howItWorksSub: "Here's how your team goes from capturing information to producing a signed, formatted document.",
@@ -332,7 +332,7 @@ export const solutions: Solution[] = [
     heroEyebrow: 'Invoice & Order Systems',
     heroH1: 'Stop building invoices by hand.',
     heroSubtitle: 'Automated order forms and invoices with auto-calculated totals, line items, tax handling, and professional formatting. Built for businesses that need reliable document generation at scale.',
-    proofBullets: ['Line items, subtotals, taxes — calculated automatically', 'Branded invoices emailed to clients as PDF attachments', 'Shipped in 1–3 weeks from a 15-minute scoping call'],
+    proofBullets: ['Line items, subtotals, taxes — calculated automatically', 'Branded invoices emailed to clients as PDF attachments', 'Professional layout with your logo, fonts, and payment terms'],
 
     howItWorksH2: 'Turn an order into a branded invoice without opening a spreadsheet.',
     howItWorksSub: "Here\u2019s how your orders become professional invoices \u2014 automatically.",
@@ -387,7 +387,7 @@ export const solutions: Solution[] = [
     heroEyebrow: 'Permit & License Systems',
     heroH1: 'Official documents that meet the standard — every time.',
     heroSubtitle: 'Custom-built permit and license generation systems formatted to government standards, with image overlays, stamps, seals, and public verification lookups.',
-    proofBullets: ['Formatted to regulatory and government standards', 'Official stamps, seals, and image overlays built in', 'Shipped in 1–3 weeks from a 15-minute scoping call'],
+    proofBullets: ['Formatted to regulatory and government standards', 'Official stamps, seals, and image overlays built in', 'Public verification available on request'],
 
     howItWorksH2: 'From inspection data to an official document.',
     howItWorksSub: "Here\u2019s how your inspectors or applicants go from data entry to an issued, verifiable permit.",
@@ -443,7 +443,7 @@ export const solutions: Solution[] = [
     heroEyebrow: 'Generation Portal Systems',
     heroH1: 'Your own document generation platform.',
     heroSubtitle: 'Full-scale portals for organizations that outgrow single-form tools. Admin dashboards, multi-user access, history tracking, and public verification \u2014 white-labeled to your brand.',
-    proofBullets: ['Admin dashboard with role-based multi-user access', 'Public verification page for certificate and document lookup', 'Shipped in 2\u20134 weeks from a 30-minute scoping call'],
+    proofBullets: ['Admin dashboard with role-based multi-user access', 'Public verification page for certificate and document lookup', 'White-labeled to your brand — your users never see ours'],
 
     howItWorksH2: 'From requirements to a running platform.',
     howItWorksSub: "Here's how we take your document workflows and turn them into a self-service portal your team runs independently.",
