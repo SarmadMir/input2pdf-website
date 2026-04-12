@@ -1,11 +1,11 @@
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import type { RateLimitResult } from './types';
+import type { RateLimitResult, RateLimitWindow } from './types';
 
 // Cache limiter instances by config signature to avoid re-creating per request
 const limiterCache = new Map<string, Ratelimit>();
 
-function getLimiter(config: { max: number; window: string }): Ratelimit {
+function getLimiter(config: { max: number; window: RateLimitWindow }): Ratelimit {
   const cacheKey = `${config.max}:${config.window}`;
   let limiter = limiterCache.get(cacheKey);
   if (!limiter) {
@@ -25,7 +25,7 @@ function getLimiter(config: { max: number; window: string }): Ratelimit {
 
 export async function createUpstashLimiter(
   key: string,
-  config: { max: number; window: string }
+  config: { max: number; window: RateLimitWindow }
 ): Promise<RateLimitResult> {
   try {
     const limiter = getLimiter(config);

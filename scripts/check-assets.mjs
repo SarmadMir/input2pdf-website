@@ -15,6 +15,14 @@ let missing = false;
 
 for (const asset of REQUIRED_ASSETS) {
   const fullPath = resolve(projectRoot, asset);
+
+  // WR-05: defense-in-depth — ensure resolved path is inside projectRoot
+  if (!fullPath.startsWith(projectRoot + '/') && fullPath !== projectRoot) {
+    console.error(`\x1b[31m[check-assets] INVALID path outside project root: ${asset}\x1b[0m`);
+    missing = true;
+    continue;
+  }
+
   if (!existsSync(fullPath)) {
     console.error(`\x1b[31m[check-assets] MISSING: ${asset}\x1b[0m`);
     missing = true;

@@ -1,4 +1,4 @@
-import type { RateLimitResult } from './types';
+import type { RateLimitResult, RateLimitWindow } from './types';
 
 // Parse window strings like '15 m', '1 h', '30 s' into milliseconds
 function parseWindow(window: string): number {
@@ -16,9 +16,25 @@ function parseWindow(window: string): number {
 
 const store = new Map<string, { count: number; resetAt: number }>();
 
+// WR-01: evict expired entries so the Map does not grow unbounded across HMR
+// or long-running dev sessions with many unique keys.
+function evictExpired(): void {
+  const now = Date.now();
+  for (const [key, entry] of store) {
+    if (now > entry.resetAt) store.delete(key);
+  }
+}
+
+// Dev-only: prevent unbounded growth in long hot-reload sessions.
+// .unref?.() so the interval does not keep the Node process alive.
+if (process.env.NODE_ENV !== 'production') {
+  const handle = setInterval(evictExpired, 5 * 60_000);
+  handle.unref?.();
+}
+
 export function createMemoryLimiter(
   key: string,
-  config: { max: number; window: string }
+  config: { max: number; window: RateLimitWindow }
 ): RateLimitResult {
   const now = Date.now();
   const windowMs = parseWindow(config.window);

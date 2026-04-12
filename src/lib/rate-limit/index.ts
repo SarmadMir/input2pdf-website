@@ -1,6 +1,6 @@
-import type { RateLimitResult } from './types';
+import type { RateLimitResult, RateLimitWindow } from './types';
 
-export type { RateLimitResult };
+export type { RateLimitResult, RateLimitWindow };
 
 /**
  * Rate-limit a request by key.
@@ -11,7 +11,7 @@ export type { RateLimitResult };
  */
 export async function ratelimit(
   key: string,
-  config: { max: number; window: string }
+  config: { max: number; window: RateLimitWindow }
 ): Promise<RateLimitResult> {
   if (isUpstashConfigured()) {
     return upstashRateLimit(key, config);
@@ -43,7 +43,7 @@ function isUpstashConfigured(): boolean {
 // Lazy imports to avoid loading Upstash SDK when not needed
 async function upstashRateLimit(
   key: string,
-  config: { max: number; window: string }
+  config: { max: number; window: RateLimitWindow }
 ): Promise<RateLimitResult> {
   const { createUpstashLimiter } = await import('./upstash');
   return createUpstashLimiter(key, config);
@@ -51,7 +51,7 @@ async function upstashRateLimit(
 
 async function memoryRateLimit(
   key: string,
-  config: { max: number; window: string }
+  config: { max: number; window: RateLimitWindow }
 ): Promise<RateLimitResult> {
   const { createMemoryLimiter } = await import('./memory');
   return createMemoryLimiter(key, config);

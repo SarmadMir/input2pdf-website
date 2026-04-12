@@ -503,9 +503,9 @@ export const solutionsBySlug: Record<SolutionSlug, Solution> = Object.fromEntrie
   solutions.map((s) => [s.slug, s])
 ) as Record<SolutionSlug, Solution>;
 
-/** Safe lookup with descriptive error */
-export function getSolutionBySlug(slug: string): Solution {
-  const solution = solutionsBySlug[slug as SolutionSlug];
+/** Safe lookup with descriptive error. Param type is SolutionSlug — compile-time guard (WR-02). */
+export function getSolutionBySlug(slug: SolutionSlug): Solution {
+  const solution = solutionsBySlug[slug];
   if (!solution) {
     throw new Error(
       `[solutions] No solution found for slug "${slug}". ` +
