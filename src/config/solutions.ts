@@ -32,7 +32,10 @@ export interface UseCase {
   stat: string;
 }
 
+export type SolutionSlug = 'certificates' | 'ecards' | 'forms' | 'invoices' | 'permits' | 'portals';
+
 export interface Solution {
+  slug: SolutionSlug;
   number: string;
   title: string;
   /** Short marketing line — used on landing/overview cards */
@@ -83,6 +86,7 @@ export interface Solution {
 
 export const solutions: Solution[] = [
   {
+    slug: 'certificates',
     number: '01',
     title: 'Certificates',
     headline: 'Professional certificates, generated and delivered instantly',
@@ -212,6 +216,7 @@ export const solutions: Solution[] = [
     industries: ['Education', 'Healthcare', 'Corporate Training', 'Government', 'Sports', 'Wellness'],
   },
   {
+    slug: 'ecards',
     number: '02',
     title: 'eCards & Digital Cards',
     headline: 'Branded digital cards valid for years, delivered instantly',
@@ -267,6 +272,7 @@ export const solutions: Solution[] = [
     industries: ['Healthcare', 'Education', 'Events', 'Corporate Training'],
   },
   {
+    slug: 'forms',
     number: '03',
     title: 'Forms & Agreements',
     headline: 'Structured business documents with digital signatures',
@@ -322,6 +328,7 @@ export const solutions: Solution[] = [
     industries: ['Finance', 'Real Estate', 'Legal', 'Transportation', 'HR'],
   },
   {
+    slug: 'invoices',
     number: '04',
     title: 'Invoices & Orders',
     headline: 'Order confirmations and financial documents, calculated and formatted',
@@ -377,6 +384,7 @@ export const solutions: Solution[] = [
     industries: ['E-Commerce', 'Banking', 'Finance', 'Retail'],
   },
   {
+    slug: 'permits',
     number: '05',
     title: 'Permits & Licenses',
     headline: 'Official documents for inspections, compliance, and credentials',
@@ -432,6 +440,7 @@ export const solutions: Solution[] = [
     industries: ['Government', 'Healthcare', 'Transportation', 'Compliance'],
   },
   {
+    slug: 'portals',
     number: '06',
     title: 'Generation Portals',
     headline: 'Full-scale platforms for document generation at volume',
@@ -488,3 +497,20 @@ export const solutions: Solution[] = [
     industries: ['Education', 'Corporate Training', 'Banking', 'HR'],
   },
 ];
+
+/** Record for O(1) lookup by slug */
+export const solutionsBySlug: Record<SolutionSlug, Solution> = Object.fromEntries(
+  solutions.map((s) => [s.slug, s])
+) as Record<SolutionSlug, Solution>;
+
+/** Safe lookup with descriptive error */
+export function getSolutionBySlug(slug: string): Solution {
+  const solution = solutionsBySlug[slug as SolutionSlug];
+  if (!solution) {
+    throw new Error(
+      `[solutions] No solution found for slug "${slug}". ` +
+      `Valid slugs: ${solutions.map((s) => s.slug).join(', ')}`
+    );
+  }
+  return solution;
+}
