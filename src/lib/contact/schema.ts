@@ -69,11 +69,16 @@ export const contactSchema = z.object({
     .trim(),
 
   // Honeypot -- must be empty for legitimate submissions.
+  // Schema accepts any string (bounded length) so the route handler can apply the
+  // strict-equality check (`data.website !== ''`) and return 200 silently to bots.
+  // If this were .max(0), Zod would short-circuit to a 400 VALIDATION response,
+  // which signals to bots that the field is being inspected. The 200 silent trap
+  // matches the WR-04 carry-forward and the behaviour asserted by tests/api-contact.test.ts.
   // SERVER MUST enforce strict equality: `if (data.website !== '') reject`.
   // Do NOT use truthiness (`if (!data.website)`) -- empty string is falsy and would bypass.
   website: z
     .string()
-    .max(0, 'This field should be empty')
+    .max(500, 'Invalid input')
     .optional()
     .default(''),
 });

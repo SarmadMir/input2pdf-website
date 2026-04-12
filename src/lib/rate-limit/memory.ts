@@ -1,7 +1,7 @@
 import type { RateLimitResult, RateLimitWindow } from './types';
 
 // Parse window strings like '15 m', '1 h', '30 s' into milliseconds
-function parseWindow(window: string): number {
+export function parseWindow(window: string): number {
   const match = window.match(/^(\d+)\s*(s|m|h|d)$/);
   if (!match) throw new Error(`Invalid rate-limit window format: "${window}"`);
   const [, num, unit] = match;
