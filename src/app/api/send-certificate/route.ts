@@ -1,66 +1,102 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { resend, RESEND_FROM } from '@/lib/resend';
+import { ratelimit } from '@/lib/rate-limit';
+import { certificateEmailSchema } from '@/lib/contact/certificate-email-schema';
+import { isDisposableEmail } from '@/lib/contact/disposable-domains';
 import { certificateEmailHtml } from '@/lib/email/certificate-email';
 
-// Simple in-memory rate limit: max 5 sends per IP per 15 minutes
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT_MAX = 5;
-const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+// SEC-10: 10MB envelope cap (base64-inflated PDFs + metadata).
+const MAX_CONTENT_LENGTH = 10 * 1024 * 1024;
+// SEC-10: 7MB cap on the raw pdfBase64 string itself.
+const MAX_PDF_BASE64 = 7_000_000;
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-
-  if (entry.count >= RATE_LIMIT_MAX) return true;
-
-  entry.count++;
-  return false;
+function errorJson(code: string, message: string, status: number, headers?: Record<string, string>) {
+  return NextResponse.json(
+    { ok: false, error: { code, message } },
+    { status, headers },
+  );
 }
 
 export async function POST(req: NextRequest) {
   try {
-    // Server-side rate limiting by IP
-    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-    if (isRateLimited(ip)) {
-      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
+    // Size cap (SEC-10)
+    const contentLength = Number(req.headers.get('content-length') ?? '0');
+    if (contentLength > MAX_CONTENT_LENGTH) {
+      return errorJson('PAYLOAD_TOO_LARGE', 'Request body too large.', 413);
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const body = await req.json();
-    const { email, pdfBase64, recipientName } = body as {
-      email: string;
-      pdfBase64: string;
-      recipientName: string;
+    // Rate limit (SEC-04) — Upstash sliding window, fails closed in prod.
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      req.headers.get('x-real-ip') ||
+      'unknown';
+    const rl = await ratelimit(`send-certificate:${ip}`, {
+      max: 5,
+      window: '15 m',
+    });
+    if (!rl.success) {
+      const retryAfter = Math.max(1, Math.ceil((rl.reset - Date.now()) / 1000));
+      return errorJson(
+        'RATE_LIMITED',
+        'Too many requests. Try again in 15 minutes.',
+        429,
+        {
+          'Retry-After': String(retryAfter),
+          'X-RateLimit-Remaining': String(rl.remaining),
+        },
+      );
+    }
+
+    const body = (await req.json()) as {
+      email?: unknown;
+      pdfBase64?: unknown;
+      recipientName?: unknown;
+      website?: unknown;
     };
 
-    // Require a recipient name (prevents empty certificate emails)
-    if (!recipientName?.trim()) {
-      return NextResponse.json({ error: 'Recipient name is required' }, { status: 400 });
+    // Honeypot — strict equality per WR-04. Bot fills field → silent 200.
+    if (body.website !== undefined && body.website !== '') {
+      // eslint-disable-next-line no-console
+      console.warn('[send-certificate] honeypot triggered', { ip });
+      return NextResponse.json({ ok: true });
     }
 
-    // Validate email
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
+    // Require recipient name
+    const recipientName =
+      typeof body.recipientName === 'string' ? body.recipientName : '';
+    if (!recipientName.trim()) {
+      return errorJson('VALIDATION', 'Recipient name is required.', 400);
     }
 
-    // Validate PDF data
-    if (!pdfBase64 || pdfBase64.length > 7_000_000) {
-      return NextResponse.json({ error: 'Invalid or oversized PDF' }, { status: 400 });
+    // Validate email with Zod + disposable-domain blocklist (SEC-13)
+    const emailParsed = certificateEmailSchema.safeParse(body.email);
+    if (!emailParsed.success) {
+      return errorJson('VALIDATION', 'Please enter a valid email address.', 400);
+    }
+    const email = emailParsed.data;
+    if (isDisposableEmail(email)) {
+      return errorJson(
+        'DISPOSABLE_EMAIL',
+        'Please use a non-disposable email address.',
+        400,
+      );
+    }
+
+    // Validate PDF base64 (SEC-10)
+    const pdfBase64 = typeof body.pdfBase64 === 'string' ? body.pdfBase64 : '';
+    if (!pdfBase64 || pdfBase64.length > MAX_PDF_BASE64) {
+      return errorJson('PAYLOAD_TOO_LARGE', 'Invalid or oversized PDF.', 400);
     }
 
     const pdfBuffer = Buffer.from(pdfBase64, 'base64');
-    const safeName = (recipientName || 'certificate').replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'certificate';
+    const safeName =
+      recipientName.replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'certificate';
 
     const { error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || 'Input2PDF Demo <onboarding@resend.dev>',
+      from: RESEND_FROM,
       to: email,
       subject: 'Your Certificate is Here — See What Input2PDF Can Build for You',
-      html: certificateEmailHtml(recipientName || ''),
+      html: certificateEmailHtml(recipientName),
       attachments: [
         {
           filename: `certificate-${safeName}.pdf`,
@@ -70,13 +106,15 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      console.error('Resend error:', error);
-      return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+      // eslint-disable-next-line no-console
+      console.error('[send-certificate] Resend error', error);
+      return errorJson('EMAIL_SEND_FAILED', 'Failed to send email.', 502);
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error('Send certificate error:', err);
-    return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
+    // eslint-disable-next-line no-console
+    console.error('[send-certificate] unknown error', err);
+    return errorJson('UNKNOWN', 'Something went wrong.', 500);
   }
 }
