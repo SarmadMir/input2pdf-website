@@ -24,8 +24,9 @@ const csp = [
   `img-src 'self' data: blob:`,
   // font-src: next/font self-hosts Geist + Bricolage Grotesque; also Pacifico + GreatVibes local.
   `font-src 'self'`,
-  // connect-src: same-origin (/api/*) + Vercel Analytics beacons. Resend is server-side only — no client access.
-  `connect-src 'self' ${VERCEL_ANALYTICS_CONNECT}`,
+  // connect-src: same-origin (/api/*) + Vercel Analytics beacons + blob: for pdfjs worker/pdf-lib fetches.
+  // Resend is server-side only — no client access.
+  `connect-src 'self' blob: ${VERCEL_ANALYTICS_CONNECT}`,
   // worker-src: pdfjs-dist spawns its worker from a blob URL when the certificate demo lazy-loads.
   `worker-src 'self' blob:`,
   // media-src: no audio/video today, but 'self' is cheap.
@@ -38,8 +39,9 @@ const csp = [
   `form-action 'self'`,
   // frame-ancestors: modern clickjacking guard; paired with X-Frame-Options: DENY for legacy.
   `frame-ancestors 'none'`,
-  // upgrade stray http:// to https://.
-  `upgrade-insecure-requests`,
+  // upgrade stray http:// to https://. Only emitted in enforcing mode — browsers ignore
+  // this directive in Report-Only policies and log a noisy console warning, so we skip it.
+  ...(isReportOnly ? [] : [`upgrade-insecure-requests`]),
 ].join('; ');
 
 const securityHeaders = [
