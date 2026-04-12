@@ -67,7 +67,7 @@ export interface NavLink {
 export const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Solutions', href: '/solutions', hasDropdown: true },
-  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Case Studies', href: '/case-studies' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
 ];
