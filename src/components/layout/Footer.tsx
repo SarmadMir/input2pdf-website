@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { brand, navLinks, socialLinks } from '@/config/site';
+import { contactHref } from '@/lib/contact/url';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -33,16 +34,21 @@ export function Footer() {
               Navigation
             </h3>
             <ul className="mt-3 space-y-2">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-light-dark transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {navLinks.map((link) => {
+                // Route the Contact nav link through contactHref() so every
+                // /contact pointer in the site flows through the typed helper.
+                const href = link.href === '/contact' ? contactHref() : link.href;
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={href}
+                      className="text-sm text-light-dark transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

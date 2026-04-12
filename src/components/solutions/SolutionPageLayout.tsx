@@ -40,6 +40,7 @@ import {
 } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
 import type { Solution } from '@/config/solutions';
+import { contactHref } from '@/lib/contact/url';
 
 /* ─── Icon resolver — single source of truth ─── */
 const iconComponents: Record<string, typeof Sparkles> = {
@@ -136,7 +137,7 @@ export function SolutionPageLayout({ solution, preview }: SolutionPageLayoutProp
                 initial={init(12)} animate={show} transition={{ duration: 0.5, delay: 0.4 }}
                 className="mt-10 flex flex-wrap items-center gap-4"
               >
-                <ButtonLink href="/contact">
+                <ButtonLink href={contactHref({ type: solution.slug })}>
                   Get a quote in 48 hours
                   <ArrowRight size={16} className="ml-1" aria-hidden />
                 </ButtonLink>
@@ -318,7 +319,7 @@ export function SolutionPageLayout({ solution, preview }: SolutionPageLayoutProp
               {solution.ctaSub}
             </p>
             <div className="mt-10 flex justify-center">
-              <ButtonLink href="/contact">
+              <ButtonLink href={contactHref({ type: solution.slug })}>
                 Tell us what you need
                 <ArrowRight size={16} className="ml-1" aria-hidden />
               </ButtonLink>

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ButtonLink } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { navLinks, solutionNavItems, type SolutionNavItem } from '@/config/site';
+import { contactHref } from '@/lib/contact/url';
 import {
   Award,
   HeartHandshake,
@@ -317,7 +318,7 @@ export function Navbar() {
                             <ArrowRight size={13} />
                           </Link>
                           <Link
-                            href="/contact"
+                            href={contactHref()}
                             onClick={() => setSolutionsOpen(false)}
                             className="text-[12px] text-foreground/45 transition-colors hover:text-foreground/60"
                           >
@@ -345,7 +346,7 @@ export function Navbar() {
         {/* Right side — Theme toggle + CTA + Mobile hamburger */}
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <ButtonLink href="/contact" size="sm" className="hidden md:inline-flex">
+          <ButtonLink href={contactHref()} size="sm" className="hidden md:inline-flex">
             Tell Us What You Need
           </ButtonLink>
           <button
@@ -445,7 +446,7 @@ export function Navbar() {
                 transition={{ delay: 0.05 * navLinks.length, duration: 0.25 }}
               >
                 <ButtonLink
-                  href="/contact"
+                  href={contactHref()}
                   onClick={() => setMobileOpen(false)}
                   className="mt-3 w-full justify-center"
                 >

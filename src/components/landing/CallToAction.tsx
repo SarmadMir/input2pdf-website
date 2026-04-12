@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ButtonLink } from '@/components/ui/Button';
+import { contactHref } from '@/lib/contact/url';
 
 export function CallToAction() {
   return (
@@ -30,7 +31,7 @@ export function CallToAction() {
           and we&apos;ll get back to you with a plan.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-          <ButtonLink href="/contact">
+          <ButtonLink href={contactHref()}>
             Start Your Project
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-2">
               <path d="M5 12h14M12 5l7 7-7 7" />

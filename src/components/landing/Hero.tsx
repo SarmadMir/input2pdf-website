@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ButtonLink } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { contactHref } from '@/lib/contact/url';
 
 const stagger = {
   hidden: {},
@@ -63,7 +64,7 @@ export function Hero() {
                   <path d="M12 5v14M5 12l7 7 7-7" />
                 </svg>
               </ButtonLink>
-              <ButtonLink href="/contact" variant="secondary">
+              <ButtonLink href={contactHref()} variant="secondary">
                 Tell Us What You Need
               </ButtonLink>
             </motion.div>

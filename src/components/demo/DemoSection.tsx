@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pencil, FileText, CheckCircle, Info, ArrowRight } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
+import { contactHref } from '@/lib/contact/url';
 import type { DemoConfig } from '@/types/demo';
 import { useTemplateLoader } from '@/lib/hooks/useTemplateLoader';
 import { usePdfGenerator } from '@/lib/hooks/usePdfGenerator';
@@ -185,7 +186,7 @@ export function DemoSection({ config }: Props) {
           <p className="text-sm text-light-dark">
             Like what you see?
           </p>
-          <ButtonLink href="/contact" variant="primary">
+          <ButtonLink href={contactHref({ type: 'certificates' })} variant="primary">
             Tell us about your project
             <ArrowRight size={14} />
           </ButtonLink>
