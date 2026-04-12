@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const PROJECT_TYPES = [
   'certificates',
+  'ecards',
   'forms',
   'invoices',
   'permits',
@@ -67,7 +68,9 @@ export const contactSchema = z.object({
     .max(5000, 'Project details must be under 5000 characters')
     .trim(),
 
-  // Honeypot field -- must be empty for legitimate submissions
+  // Honeypot -- must be empty for legitimate submissions.
+  // SERVER MUST enforce strict equality: `if (data.website !== '') reject`.
+  // Do NOT use truthiness (`if (!data.website)`) -- empty string is falsy and would bypass.
   website: z
     .string()
     .max(0, 'This field should be empty')
@@ -78,6 +81,7 @@ export const contactSchema = z.object({
 /** Display labels for form dropdowns */
 export const PROJECT_TYPE_LABELS: Record<typeof PROJECT_TYPES[number], string> = {
   'certificates': 'Certificates',
+  'ecards': 'eCards & Digital Cards',
   'forms': 'Forms & Agreements',
   'invoices': 'Invoices & Orders',
   'permits': 'Permits & Licenses',
