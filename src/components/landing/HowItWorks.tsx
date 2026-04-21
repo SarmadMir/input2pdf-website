@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 const steps = [
   {
     number: '01',
-    title: 'Tell Us What You Need',
+    title: 'Describe the document',
     description:
-      'Describe your document — certificate, agreement, onboarding form, or anything else. We handle the complexity.',
+      'Tell us what your organization issues — certificates, agreements, invoices, permits. We scope the system against the specifics.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
@@ -16,9 +16,9 @@ const steps = [
   },
   {
     number: '02',
-    title: 'We Build Your System',
+    title: 'We build the system',
     description:
-      'A custom document generation system tailored to your exact design, fields, and workflow. Delivered fast.',
+      'A document system tailored to your templates, your fields, your workflow — delivered end to end, on your stack.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
@@ -27,9 +27,9 @@ const steps = [
   },
   {
     number: '03',
-    title: 'Generate & Deliver',
+    title: 'Issue documents continuously',
     description:
-      'Your users fill a form, PDFs generate instantly. Embed it on your site, use the API, or run it standalone.',
+      'Your users submit. The system generates, delivers, and logs every document — on every submission, every cohort, every event.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
