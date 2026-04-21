@@ -7,8 +7,8 @@ import { solutions } from '@/config/solutions';
 import { Badge } from '@/components/ui/Badge';
 
 /* ─── Icons (matches mega menu) ─── */
-// Plan 03-03: 'contract' stub keeps the landing build passing when SolutionSlug
-// widens. Plan 03-11 owns the visual polish for the 7-card layout.
+// 7 slugs mirror the solutions.ts SolutionSlug union. Contract = FileSignature
+// (canonical — same icon in Navbar mega-menu + /solutions overview + this card).
 const icons: Record<string, React.ReactNode> = {
   certificate: <Award size={22} />,
   ecard: <HeartHandshake size={22} />,
@@ -77,7 +77,7 @@ export function SolutionsOverview() {
             What We Build
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-light-dark sm:text-xl">
-            Custom PDF systems for every document type and your business needs — pick yours to learn more.
+            From certificates to contracts, invoices to inspection permits — any document your organization issues at scale.
           </p>
         </motion.div>
 
