@@ -23,9 +23,12 @@ import {
 } from 'lucide-react';
 
 /* ─── Icon mapping using Lucide ─── */
-// Plan 03-03: 'contract' stub (FileSignature) added so mega-menu type-checks
-// when SolutionNavItem.icon widens. Plan 03-11 owns the mega-menu visual polish
-// (final icon choice, sizing, 7-item layout fit).
+// Canonical 7-icon map. Contract = FileSignature, matching the landing
+// SolutionsOverview card + /solutions overview grid + SolutionCard.
+// Mega-menu renders the 7 items as a vertical left index (w-[340px]) + a
+// detail panel on the right (flex-1 of w-[900px]); 7 items fit without
+// layout change at 1440px. At 768px/375px the mega menu collapses to the
+// mobile accordion below, which iterates solutionNavItems directly.
 const solutionIcons: Record<SolutionNavItem['icon'], React.ReactNode> = {
   certificate: <Award size={20} />,
   ecard: <HeartHandshake size={20} />,
