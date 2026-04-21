@@ -3,6 +3,8 @@ import { scopeTiers, PRICING_FRAMING } from '@/config/pricing';
 import { ScopeTierCard } from '@/components/pricing/ScopeTierCard';
 import { ButtonLink } from '@/components/ui/Button';
 import { contactHref } from '@/lib/contact/url';
+import { FAQ } from '@/components/landing/FAQ';
+import { faqItems } from '@/config/faq';
 
 export const metadata: Metadata = {
   title: 'Pricing — Input2PDF',
@@ -62,10 +64,14 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* FAQ mount-point. Plan 03-14 renders <FAQ /> inside this section.
-          Keeping the anchor here so /pricing#faq deep links work before 03-14 lands. */}
-      <section id="faq" aria-label="Frequently asked questions" className="mt-24">
-        {/* Intentionally empty — filled by Plan 03-14. */}
+      {/* FAQ — full 13-16 set (Plan 03-14 mount of CNT-04 dataset).
+          Anchor id preserved so /pricing#faq deep links keep resolving. */}
+      <section id="faq" className="mt-24">
+        <FAQ
+          items={faqItems}
+          heading="Questions we get"
+          subheading="Pricing, process, and positioning — the ones that come up most often."
+        />
       </section>
     </main>
   );
