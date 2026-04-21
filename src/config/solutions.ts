@@ -300,7 +300,7 @@ export const solutions: Solution[] = [
       { icon: 'send', title: 'Signed PDF, delivered', description: 'A signed, formatted PDF is generated instantly and delivered to all parties automatically.', detail: 'Both parties get a copy' },
     ],
 
-    featuresH2: 'Beyond a form builder.',
+    featuresH2: 'Beyond a drag-and-drop template.',
     featuresSub: "Each system is built to match your exact document and workflow \u2014 not a drag-and-drop template.",
     heroFeatures: [
       { icon: 'pen-tool', title: 'Real signature capture.', description: 'Built-in signature pad on every form. Users draw their signature on any device. It appears on the final PDF exactly where it should \u2014 built in, not bolted on.' },
@@ -321,7 +321,7 @@ export const solutions: Solution[] = [
       { tag: 'Transportation', title: 'German Business Registration', description: 'Taxi and restaurant businesses fill out registration forms in German. Vehicle details and fee calculations auto-populate. Emailed to the registering office.', stat: 'Multi-language \u00b7 DE/EN' },
     ],
 
-    ctaH2: 'Ready to streamline your paperwork?',
+    ctaH2: 'Ready to automate the paperwork?',
     ctaSub: "Tell us about your document workflow. We'll send back a fixed-scope quote in 48 hours — free, no obligation.",
     ctaMicro: 'Typical build: 1–3 weeks  ·  Fixed scope  ·  One payment, not a subscription',
 
@@ -470,7 +470,7 @@ export const solutions: Solution[] = [
     ],
 
     featuresH2: 'Enterprise infrastructure, not enterprise pricing.',
-    featuresSub: "These are full platforms — not form builders with a coat of paint.",
+    featuresSub: "These are full platforms — not drag-and-drop templates with a coat of paint.",
     heroFeatures: [
       { icon: 'gauge', title: 'Admin dashboard.', description: 'Manage templates, users, generation history, and delivery status from a single interface. Role-based access means instructors, admins, and staff each see what they need.' },
       { icon: 'search', title: 'Public status checker.', description: 'No-login lookup for certificate and document verification. Anyone can check if a document is valid by entering its number — no account required.' },
