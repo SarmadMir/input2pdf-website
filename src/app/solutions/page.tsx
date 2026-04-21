@@ -5,16 +5,16 @@ import {
 } from 'lucide-react';
 import { solutions } from '@/config/solutions';
 import { Badge } from '@/components/ui/Badge';
+import { PROJECTS_SHIPPED } from '@/config/stats';
 
 export const metadata = {
   title: 'Solutions — Input2PDFSolution',
-  description:
-    'Custom PDF generation systems for certificates, eCards, forms, invoices, permits, and enterprise portals. 30+ projects delivered across 6+ countries.',
+  description: `Document automation systems for certificates, eCards, forms, invoices, permits, contracts, and enterprise portals. ${PROJECTS_SHIPPED}+ projects delivered end to end.`,
 };
 
 /* ─── Icons (matches mega menu) ─── */
-// Plan 03-03: 'contract' stub keeps /solutions prerender succeeding when
-// SolutionSlug widens. Plan 03-11 owns the visual polish for the 7-card layout.
+// Canonical 7-slug map (mirrors SolutionsOverview + Navbar). Contract =
+// FileSignature — same icon across every solutions surface.
 const icons: Record<string, React.ReactNode> = {
   certificate: <Award size={22} />,
   ecard: <HeartHandshake size={22} />,
@@ -65,16 +65,16 @@ export default function SolutionsOverviewPage() {
           <p className="text-sm font-semibold text-primary">What We Build</p>
 
           <h1 className="mt-5 max-w-3xl font-display text-[2.75rem] font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-            Custom PDF systems for every document type.
+            Document automation systems for every document type.
           </h1>
           <p className="mt-6 max-w-xl text-[17px] leading-[1.65] text-foreground/60">
-            From simple certificates to full-scale generation portals — each system is purpose-built for your workflow. Pick a type to see how it works.
+            From certificates to contracts, invoices to inspection permits — each system is purpose-built for your workflow. Pick a type to see how it works.
           </p>
 
           {/* Stats */}
           <div className="mt-10 flex flex-wrap items-center gap-8 border-t border-border pt-8">
             {[
-              { value: '30+', label: 'Projects delivered' },
+              { value: `${PROJECTS_SHIPPED}+`, label: 'Projects delivered' },
               { value: '6+', label: 'Countries' },
               { value: '5+', label: 'Industries' },
             ].map((stat) => (
@@ -162,7 +162,7 @@ export default function SolutionsOverviewPage() {
             Trusted across industries
           </h2>
           <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-foreground/50">
-            We&rsquo;ve delivered custom PDF systems for organizations in these sectors.
+            We&rsquo;ve delivered document automation systems for organizations in these sectors.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
