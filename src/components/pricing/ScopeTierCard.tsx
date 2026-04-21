@@ -9,9 +9,9 @@ import type { ScopeTier } from '@/types/pricing';
  * Pure Server Component (no client directive). Consumes the typed `ScopeTier` shape from
  * Plan 03-02's `src/config/pricing.ts` and deep-links its CTA via
  * `contactHref({ type: tier.deepLinkType })` with zero casts — PRC-05 lock
- * (no `&budget=` pre-fill). Zero currency characters render here or in the
- * page that composes it; PRC-01 is enforced by Task 3's grep gate and
- * Plan 03-15's Vitest invariants.
+ * (type pre-fill only, no amount-range pre-fill). Zero currency characters render
+ * here or in the page that composes it; PRC-01 is enforced by Task 3's grep gate
+ * and Plan 03-15's Vitest invariants.
  */
 export function ScopeTierCard({ tier }: { tier: ScopeTier }) {
   const highlight = tier.highlight === true;
