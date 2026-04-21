@@ -1,8 +1,12 @@
 export const brand = {
   name: 'Input2PDF',
-  tagline: 'Custom document systems, built for your business.',
+  // CMP-02: locked category label. Defer to `.planning/brand-voice.md` for tone rules.
+  category: 'Document Automation Systems',
+  // CMP-01: locked tagline. Do not edit without changing every consuming surface in lockstep.
+  tagline: 'Build Once. Generate Forever.',
+  // Canonical positioning line per `docs/input2pdf/input2pdf-description.md` ground-truth voice.
   description:
-    'We build custom systems that generate certificates, agreements, and business documents from simple form inputs. Tailored to your needs, delivered fast.',
+    'Systems that turn structured input into production-ready documents at scale.',
   colors: {
     primary: '#f26380',
     secondary: '#63F2D5',
@@ -16,7 +20,7 @@ export interface SolutionNavItem {
   label: string;
   href: string;
   description: string;
-  icon: 'certificate' | 'ecard' | 'form' | 'invoice' | 'permit' | 'portal';
+  icon: 'certificate' | 'ecard' | 'form' | 'invoice' | 'permit' | 'portal' | 'contract';
 }
 
 export const solutionNavItems: SolutionNavItem[] = [
@@ -55,6 +59,12 @@ export const solutionNavItems: SolutionNavItem[] = [
     href: '/solutions/portals',
     description: 'Your own document platform, white-labeled',
     icon: 'portal',
+  },
+  {
+    label: 'Contracts & eSign',
+    href: '/solutions/contracts',
+    description: 'Structured inputs in. Legal-style documents out.',
+    icon: 'contract',
   },
 ];
 

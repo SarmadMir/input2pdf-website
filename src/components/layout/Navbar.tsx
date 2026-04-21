@@ -15,6 +15,7 @@ import {
   Receipt,
   Stamp,
   LayoutGrid,
+  FileSignature,
   ChevronDown,
   ArrowRight,
   Menu,
@@ -22,6 +23,9 @@ import {
 } from 'lucide-react';
 
 /* ─── Icon mapping using Lucide ─── */
+// Plan 03-03: 'contract' stub (FileSignature) added so mega-menu type-checks
+// when SolutionNavItem.icon widens. Plan 03-11 owns the mega-menu visual polish
+// (final icon choice, sizing, 7-item layout fit).
 const solutionIcons: Record<SolutionNavItem['icon'], React.ReactNode> = {
   certificate: <Award size={20} />,
   ecard: <HeartHandshake size={20} />,
@@ -29,6 +33,7 @@ const solutionIcons: Record<SolutionNavItem['icon'], React.ReactNode> = {
   invoice: <Receipt size={20} />,
   permit: <Stamp size={20} />,
   portal: <LayoutGrid size={20} />,
+  contract: <FileSignature size={20} />,
 };
 
 /* ─── Detail content per solution (shown in right panel) ─── */
@@ -94,6 +99,16 @@ const solutionDetails: Record<
       'Admin dashboard with generation history',
       'Role-based access for your team',
       'Public verification for recipients',
+    ],
+  },
+  contract: {
+    title: 'Structured inputs in.\nLegal-style documents out.',
+    description:
+      'Service agreements, contractor agreements, NDAs, and consent forms — built around your exact clauses and workflow. Optional extension for approvals or signatures.',
+    features: [
+      'Legal-style output from your templates',
+      'Conditional clauses and audit-ready logs',
+      'eSign integration (optional)',
     ],
   },
 };
