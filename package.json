@@ -7,7 +7,8 @@
   },
   "scripts": {
     "check-assets": "node scripts/check-assets.mjs",
-    "prebuild": "npm run check-assets",
+    "check-voice": "node scripts/check-voice.mjs",
+    "prebuild": "npm run check-assets && node scripts/check-voice.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
