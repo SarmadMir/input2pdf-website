@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { ButtonLink } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { contactHref } from '@/lib/contact/url';
+import { brand } from '@/config/site';
+import { PROJECTS_SHIPPED, FIVERR_RATING } from '@/config/stats';
 
 const stagger = {
   hidden: {},
@@ -41,20 +43,27 @@ export function Hero() {
             {/* Badge */}
             <motion.div variants={fadeUp} className="mb-6">
               <Badge variant="ghost-primary" size="lg" dot="primary">
-                Custom PDF Systems
+                {brand.category}
               </Badge>
             </motion.div>
 
             <motion.h1 variants={fadeUp} className="font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-              We build your{' '}
+              Systems that issue{' '}
               <br className="hidden sm:block" />
-              <span className="text-primary">document generator.</span>
+              <span className="text-primary">documents continuously.</span>
             </motion.h1>
+
+            <motion.p
+              variants={fadeUp}
+              className="mt-3 font-display text-lg font-medium tracking-wide text-primary sm:text-xl"
+            >
+              {brand.tagline}
+            </motion.p>
 
             <motion.p variants={fadeUp} className="mt-5 max-w-lg text-base leading-relaxed text-light-dark sm:text-lg">
               Certificates for your students. Agreements for your clients.
-              Invoices, badges, permits — we turn your data into polished
-              documents, seamlessly.
+              Invoices, badges, permits — we build the system that issues them
+              end to end, on every submission.
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -75,10 +84,10 @@ export function Hero() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-secondary">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
-                <span>5.0 on Fiverr</span>
+                <span>{FIVERR_RATING.toFixed(1)} on Fiverr</span>
               </div>
               <div className="h-3 w-px bg-border" />
-              <span>20+ projects delivered</span>
+              <span>{PROJECTS_SHIPPED}+ projects delivered</span>
             </motion.div>
           </motion.div>
 
@@ -89,8 +98,8 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
           >
-            {/* Vertical flow: Form → Arrow → PDF — animates as one unit */}
-            <div className="animate-float-slow flex w-full max-w-sm select-none flex-col items-center gap-3">
+            {/* Vertical flow: Form → Arrow → PDF — rendered as a static composition (motion-budget compliant) */}
+            <div className="flex w-full max-w-sm select-none flex-col items-center gap-3">
               {/* Form card */}
               <div className="w-full rounded-xl border border-border bg-surface p-5 shadow-2xl shadow-black/20">
                 <div className="mb-3 flex items-center gap-2">
@@ -164,8 +173,8 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Decorative glow */}
-              <div className="animate-pulse-glow absolute -bottom-4 left-1/4 h-32 w-32 rounded-full bg-primary/10 blur-3xl" />
+              {/* Decorative glow — static, non-animated (motion-budget compliant) */}
+              <div className="absolute -bottom-4 left-1/4 h-32 w-32 rounded-full bg-primary/10 blur-3xl" />
             </div>
           </motion.div>
         </div>
