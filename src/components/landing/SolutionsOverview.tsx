@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Award, HeartHandshake, FilePenLine, Receipt, Stamp, LayoutGrid, ArrowRight } from 'lucide-react';
+import { Award, HeartHandshake, FilePenLine, Receipt, Stamp, LayoutGrid, FileSignature, ArrowRight } from 'lucide-react';
 import { solutions } from '@/config/solutions';
 import { Badge } from '@/components/ui/Badge';
 
 /* ─── Icons (matches mega menu) ─── */
+// Plan 03-03: 'contract' stub keeps the landing build passing when SolutionSlug
+// widens. Plan 03-11 owns the visual polish for the 7-card layout.
 const icons: Record<string, React.ReactNode> = {
   certificate: <Award size={22} />,
   ecard: <HeartHandshake size={22} />,
@@ -14,6 +16,7 @@ const icons: Record<string, React.ReactNode> = {
   invoice: <Receipt size={22} />,
   permit: <Stamp size={22} />,
   portal: <LayoutGrid size={22} />,
+  contract: <FileSignature size={22} />,
 };
 
 const slugMap: Record<string, string> = {
@@ -23,6 +26,7 @@ const slugMap: Record<string, string> = {
   invoice: '/solutions/invoices',
   permit: '/solutions/permits',
   portal: '/solutions/portals',
+  contract: '/solutions/contracts',
 };
 
 export function SolutionsOverview() {
