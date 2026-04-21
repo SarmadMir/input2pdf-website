@@ -25,7 +25,7 @@ export default function NotFound() {
       </div>
 
       <p className="mt-10 text-sm text-foreground/55">
-        Think something is broken?{' '}
+        Think something is broken?{/* voice-exempt: 404 copy asks visitor about their experience, not a competitor claim */}{' '}
         <Link
           href="/contact"
           className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"

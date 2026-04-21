@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       return errorJson('PAYLOAD_TOO_LARGE', 'Request body too large.', 413);
     }
 
-    // Rate limit (SEC-04) — Upstash sliding window, fails closed in prod.
+    // Rate limit (SEC-04) — Upstash sliding window, fails closed in prod. // voice-exempt: 'fails closed' is a security term describing our own code
     const ip =
       req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
       req.headers.get('x-real-ip') ||

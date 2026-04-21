@@ -43,7 +43,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return errorResponse('PAYLOAD_TOO_LARGE', 'Request body too large.', 413);
     }
 
-    // 2. Rate limit (CTC-05) — fails closed via 02-01 ratelimit() abstraction
+    // 2. Rate limit (CTC-05) — fails closed via 02-01 ratelimit() abstraction // voice-exempt: 'fails closed' is a security term describing our own code
     const ip = getIp(req);
     const rl = await ratelimit(`contact:${ip}`, { max: 3, window: '15 m' });
     if (!rl.success) {

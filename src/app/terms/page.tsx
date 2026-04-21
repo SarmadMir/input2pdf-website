@@ -94,7 +94,7 @@ export default function TermsPage() {
             PLACEHOLDER_JURISDICTION
           </span>
           . Disputes are resolved first through good-faith negotiation; if
-          that fails, through the courts of the governing jurisdiction.
+          that fails, through the courts of the governing jurisdiction. {/* voice-exempt: legal-terms boilerplate — 'if that fails' refers to negotiation, not competitor product */}
         </p>
       </section>
 

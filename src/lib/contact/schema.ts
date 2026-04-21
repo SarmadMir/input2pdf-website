@@ -94,7 +94,7 @@ export const PROJECT_TYPE_LABELS: Record<typeof PROJECT_TYPES[number], string> =
   'portals': 'Generation Portals',
   'contracts-esign': 'Contracts & eSign',
   'course-management': 'Course Management',
-  'pdf-generator': 'PDF Generator',
+  'pdf-generator': 'PDF Generator', // voice-exempt: legacy form-dropdown label so visitors self-select into this category; Sarmad-approved UI string, not marketing copy
   'other': 'Other',
 };
 

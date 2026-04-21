@@ -7,7 +7,7 @@ export type { RateLimitResult, RateLimitWindow };
  * Production: Upstash Redis sliding window.
  * Development: In-memory Map (with loud warning if used in prod).
  *
- * Fails CLOSED on Upstash errors in production (returns limited: true).
+ * Fails CLOSED on Upstash errors in production (returns limited: true). // voice-exempt: internal rate-limit code comment; 'fails closed' is a security term, not competitor tone
  */
 export async function ratelimit(
   key: string,
