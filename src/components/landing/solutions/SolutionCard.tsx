@@ -8,7 +8,7 @@ import {
   useSpring,
   useReducedMotion,
 } from 'framer-motion';
-import { Award, HeartHandshake, FilePenLine, Receipt, Stamp, LayoutGrid } from 'lucide-react';
+import { Award, HeartHandshake, FilePenLine, Receipt, Stamp, LayoutGrid, FileSignature } from 'lucide-react';
 import type { Solution } from '@/config/solutions';
 import { Badge, type BadgeVariant } from '@/components/ui/Badge';
 import { SolutionNumber } from './SolutionNumber';
@@ -20,6 +20,9 @@ const badgeVariantFor = (label: string): BadgeVariant =>
   label.toLowerCase().includes('enterprise') ? 'outline-primary' : 'solid-primary';
 
 /* ─── Icons (matches mega menu) ─── */
+// Plan 03-03 adds the 'contract' key as a minimal stub (FileSignature) to keep
+// `tsc --noEmit` clean when the SolutionSlug union widens. Plan 03-11 owns the
+// visual polish (icon weight, final choice, card-level treatment).
 const icons: Record<Solution['icon'], React.ReactNode> = {
   certificate: <Award size={26} />,
   ecard: <HeartHandshake size={26} />,
@@ -27,6 +30,7 @@ const icons: Record<Solution['icon'], React.ReactNode> = {
   invoice: <Receipt size={26} />,
   permit: <Stamp size={26} />,
   portal: <LayoutGrid size={26} />,
+  contract: <FileSignature size={26} />,
 };
 
 interface SolutionCardProps {

@@ -32,7 +32,14 @@ export interface UseCase {
   stat: string;
 }
 
-export type SolutionSlug = 'certificates' | 'ecards' | 'forms' | 'invoices' | 'permits' | 'portals';
+export type SolutionSlug =
+  | 'certificates'
+  | 'ecards'
+  | 'forms'
+  | 'invoices'
+  | 'permits'
+  | 'portals'
+  | 'contracts';
 
 export interface Solution {
   slug: SolutionSlug;
@@ -43,7 +50,7 @@ export interface Solution {
   /** Long description — used on /solutions overview page */
   description: string;
   forWho: string;
-  icon: 'certificate' | 'ecard' | 'form' | 'invoice' | 'permit' | 'portal';
+  icon: 'certificate' | 'ecard' | 'form' | 'invoice' | 'permit' | 'portal' | 'contract';
   badge?: string;
 
   /* ─── Detail page content (v3 design) ─── */
@@ -495,6 +502,158 @@ export const solutions: Solution[] = [
     ],
     examples: ['Scout badge portals', 'Training certificate platforms', 'School assessment systems', 'Customer onboarding portals', 'HR document platforms', 'White-labeled generators'],
     industries: ['Education', 'Corporate Training', 'Banking', 'HR'],
+  },
+  {
+    slug: 'contracts',
+    number: '07',
+    title: 'Contracts & eSign',
+    headline: 'Structured inputs in. Legal-style documents out.',
+    description:
+      'Service agreements, contractor agreements, NDAs, consent forms, and structured legal forms — generated from intake inputs and delivered as branded PDFs. Optional extension for workflows that require approvals or signatures.',
+    forWho: 'For legal teams, HR, real estate, and compliance',
+    icon: 'contract',
+
+    heroEyebrow: 'Contract & eSign Systems',
+    heroH1: 'Legal-style documents, generated from structured inputs.',
+    heroSubtitle:
+      'Service agreements, contractor agreements, NDAs, and consent forms — built around your exact clauses and workflow. Optional extension for approvals or signatures.',
+    proofBullets: [
+      'Legal-style output from form or API inputs — your templates, your clauses',
+      'Conditional fields and auto-calculations for contract-specific logic',
+      'Optional eSign integration where approvals or signatures are required',
+    ],
+
+    howItWorksH2: 'From intake to signature-ready in one pass',
+    howItWorksSub:
+      'A single intake captures engagement specifics. The system composes the agreement and delivers a signature-ready PDF. Async approval routing is an optional add-on.',
+    howItWorks: [
+      {
+        icon: 'file-text',
+        title: 'Capture the specifics',
+        description:
+          'Structured intake collects scope, fees, deliverables, milestones, jurisdiction, and conditional clauses.',
+        detail: 'One entry, not ten copy-pastes.',
+      },
+      {
+        icon: 'workflow',
+        title: 'Compose the document',
+        description:
+          'The system merges inputs into your clause library. Conditional clauses appear only when their conditions are met.',
+        detail: 'Consistent by construction.',
+      },
+      {
+        icon: 'send',
+        title: 'Deliver signature-ready',
+        description:
+          'Output ships as a branded PDF. Optional routing to your eSign platform handles asynchronous approvals.',
+        detail: 'Your signature platform, not ours.',
+      },
+    ],
+
+    featuresH2: 'Built around your clauses, not a template market',
+    featuresSub:
+      'Your contract template, your variable fields, your conditional logic. The system encodes the engagement so legal review validates the inputs, not every clause.',
+    heroFeatures: [
+      {
+        icon: 'layers',
+        title: 'Clause-level control.',
+        description:
+          'Your clause library lives as structured templates. Every generated document is consistent with your legal review — no drag-and-drop template compromise.',
+      },
+      {
+        icon: 'sliders',
+        title: 'Workflow-aware generation.',
+        description:
+          'Input from a form, a spreadsheet, or an API event. The system fills the template, applies conditional logic, and logs the record — end to end.',
+      },
+    ],
+    supportingFeatures: [
+      {
+        icon: 'pen-tool',
+        title: 'eSign integration (optional)',
+        description:
+          'Optional extension for workflows that require approvals or signatures. When your use case needs signature collection, we integrate with your preferred eSign platform.',
+      },
+      {
+        icon: 'shield-check',
+        title: 'Audit-ready output',
+        description:
+          'Every generation logs with a timestamp and input fingerprint. Compliance review gets a clean trail without extra bookkeeping.',
+      },
+      {
+        icon: 'git-merge',
+        title: 'Conditional clauses',
+        description:
+          'Clauses appear only when their conditions are met — jurisdiction, scope, engagement tier. No dead text, no manual toggles per draft.',
+      },
+      {
+        icon: 'database',
+        title: 'Source-of-truth intake',
+        description:
+          'The intake record is the single source the document is composed from. Amendments update the inputs; the document regenerates cleanly.',
+      },
+    ],
+
+    useCasesH2: 'Built for real engagements',
+    useCasesSub:
+      'Every engagement with structured inputs and a specific document pattern — agencies, HR departments, legal teams, consent flows.',
+    useCases: [
+      {
+        tag: 'Agency',
+        title: 'Service agreements from structured briefs',
+        description:
+          'Intake captures scope, fees, milestones, and conditional clauses; the system composes a signature-ready service agreement.',
+        stat: 'Half-day drafts in minutes',
+      },
+      {
+        tag: 'HR',
+        title: 'Contractor agreements with role-specific clauses',
+        description:
+          'Role-keyed clause libraries produce consistent contractor agreements — jurisdiction-aware, schedule-aware, approval-aware.',
+        stat: 'Consistent by construction',
+      },
+      {
+        tag: 'Healthcare',
+        title: 'Structured consent forms',
+        description:
+          'Patient-specific consent forms composed from structured intake. Conditional disclosures appear only where required.',
+        stat: 'Every form, every visit',
+      },
+    ],
+
+    ctaH2: 'Your clauses, your workflow, our system.',
+    ctaSub:
+      'Tell us about the document — scope, clauses, approval flow. We build the system around it.',
+    ctaMicro: 'Most engagements start with a 30-minute scope call.',
+
+    capabilities: [
+      {
+        label: 'Clause-level control',
+        description: 'Your clause library, structured and conditional.',
+        highlight: true,
+      },
+      {
+        label: 'Conditional logic',
+        description: 'Clauses appear only when their conditions are met.',
+      },
+      {
+        label: 'Audit-ready output',
+        description: 'Every generation timestamped with input fingerprint.',
+      },
+      {
+        label: 'eSign integration (optional)',
+        description: 'Route to your preferred signature platform when approvals are required.',
+      },
+    ],
+    examples: [
+      'Service agreements',
+      'Contractor agreements',
+      'NDAs',
+      'Consent forms',
+      'Disclosure forms',
+      'Compliance attestations',
+    ],
+    industries: ['Legal', 'HR', 'Real estate', 'Healthcare consent', 'Compliance'],
   },
 ];
 

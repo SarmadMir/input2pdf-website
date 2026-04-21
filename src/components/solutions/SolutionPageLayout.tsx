@@ -39,8 +39,23 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
-import type { Solution } from '@/config/solutions';
+import type { Solution, SolutionSlug } from '@/config/solutions';
 import { contactHref } from '@/lib/contact/url';
+import { PROJECT_TYPES } from '@/lib/contact/schema';
+
+/**
+ * Map a SolutionSlug to the /contact form's `type` enum (PROJECT_TYPES).
+ *
+ * Every slug matches a PROJECT_TYPE value 1:1 EXCEPT `'contracts'`, which maps
+ * to the schema-locked enum value `'contracts-esign'` (see 03-CONTEXT.md:66
+ * and .planning/brand-voice.md Contracts rules — the schema's enum keeps the
+ * `-esign` suffix to preserve the optional-extension framing in form analytics).
+ * Plan 03-03 widens SolutionSlug; this mapper bridges the two enums so
+ * `contactHref({ type: ... })` stays type-safe.
+ */
+function slugToProjectType(slug: SolutionSlug): (typeof PROJECT_TYPES)[number] {
+  return slug === 'contracts' ? 'contracts-esign' : slug;
+}
 
 /* ─── Icon resolver — single source of truth ─── */
 const iconComponents: Record<string, typeof Sparkles> = {
@@ -137,7 +152,7 @@ export function SolutionPageLayout({ solution, preview }: SolutionPageLayoutProp
                 initial={init(12)} animate={show} transition={{ duration: 0.5, delay: 0.4 }}
                 className="mt-10 flex flex-wrap items-center gap-4"
               >
-                <ButtonLink href={contactHref({ type: solution.slug })}>
+                <ButtonLink href={contactHref({ type: slugToProjectType(solution.slug) })}>
                   Get a quote in 48 hours
                   <ArrowRight size={16} className="ml-1" aria-hidden />
                 </ButtonLink>
@@ -319,7 +334,7 @@ export function SolutionPageLayout({ solution, preview }: SolutionPageLayoutProp
               {solution.ctaSub}
             </p>
             <div className="mt-10 flex justify-center">
-              <ButtonLink href={contactHref({ type: solution.slug })}>
+              <ButtonLink href={contactHref({ type: slugToProjectType(solution.slug) })}>
                 Tell us what you need
                 <ArrowRight size={16} className="ml-1" aria-hidden />
               </ButtonLink>
