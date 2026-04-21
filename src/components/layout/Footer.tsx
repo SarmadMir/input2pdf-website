@@ -23,7 +23,10 @@ export function Footer() {
                 Input2PDF
               </span>
             </Link>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-light-dark">
+            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-foreground/65">
+              {brand.category}
+            </p>
+            <p className="mt-1 max-w-xs text-sm leading-relaxed text-light-dark">
               {brand.tagline}
             </p>
           </div>
@@ -84,8 +87,20 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border pt-6 text-center text-xs text-light-dark">
-          &copy; {year} {brand.name}. All rights reserved.
+        <div className="mt-10 flex flex-col items-center gap-2 border-t border-border pt-6 text-center text-xs text-light-dark sm:flex-row sm:justify-between">
+          <span>&copy; {year} {brand.name}. All rights reserved.</span>
+          {/* voice-exempt: CNT-08 attribution, locked copy */}
+          <a
+            href="https://sarmadmir.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-foreground/55 transition-colors hover:text-primary"
+          >
+            Crafted with care by Sarmad Mir
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <path d="M7 17L17 7M7 7h10v10" />
+            </svg>
+          </a>
         </div>
       </div>
     </footer>
