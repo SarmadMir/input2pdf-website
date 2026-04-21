@@ -37,8 +37,8 @@ export function CallToAction() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </ButtonLink>
-          <ButtonLink href="/portfolio" variant="secondary">
-            View Past Work
+          <ButtonLink href="/case-studies" variant="secondary">
+            See case studies
           </ButtonLink>
         </div>
       </motion.div>
